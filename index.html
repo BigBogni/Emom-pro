@@ -347,10 +347,14 @@ input:not([type=range]):not([type=color]):not([type=checkbox]):not(.num),select,
 .bkcard{background:linear-gradient(180deg,color-mix(in srgb,var(--card) 92%,#fff),var(--card));border:1px solid var(--line);border-radius:24px;padding:18px;width:min(100%,420px);max-height:90vh;overflow:auto;box-shadow:0 24px 60px -12px rgba(0,0,0,.6);animation:ppop .4s cubic-bezier(.2,1.2,.4,1)}
 .filebtn{display:block;text-align:center;cursor:pointer;box-sizing:border-box}
 #bk textarea{display:block;width:100%;box-sizing:border-box;margin-top:8px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:10px;font-family:inherit;resize:vertical}
+#profile .card{background:var(--panel,var(--bg));border:1px solid var(--line);border-radius:16px}
+#profile input:focus{outline:2px solid var(--accent,#3D5CF0);outline-offset:1px}
+#profile label{display:block;font-size:14px}
+#profile .wide{width:100%}
 </style>
 </head>
 <body>
-<nav id="tabs"><button class="on" data-t="setup">⏱️ Chrono</button><button data-t="perf">📈 Performances</button><button id="prm-btn" aria-label="Paramètres" aria-expanded="false" aria-haspopup="dialog"><span class="gear">⚙️</span></button>
+<nav id="tabs"><button class="on" data-t="setup">⏱️ Chrono</button><button data-t="perf">📈 Performances</button><button data-t="profile">👤 Profil</button><button id="prm-btn" aria-label="Paramètres" aria-expanded="false" aria-haspopup="dialog"><span class="gear">⚙️</span></button>
   <div class="bubble" id="prm" role="dialog" aria-label="Paramètres"><b>Paramètres</b><div style="margin-top:10px"><div class="row"><div>Thème<small id="th-lab"></small></div><button class="tsw t-theme" id="sw-theme" role="switch" aria-label="Basculer entre thème clair et sombre"><span class="k"></span></button></div>
   <div class="row"><div>Effets sonores</div><input type="range" id="vol" min="0" max="100" step="5" aria-label="Volume des sons"></div>
   <div class="row"><div>Voix</div><input type="range" id="vvol" min="0" max="100" step="5" aria-label="Volume de la voix"></div>
@@ -493,6 +497,33 @@ input:not([type=range]):not([type=color]):not([type=checkbox]):not(.num),select,
   <button class="wide" id="bk-close" style="margin:0">Fermer</button>
 </div></div>
 <div id="toast" role="status"></div>
+<section id="profile" class="hide" style="max-width:620px;margin:0 auto;padding:20px">
+  <h2 style="margin-top:8px">Profil</h2>
+  <p class="sub">Connecte-toi pour retrouver tes performances sur tes appareils. La connexion reste facultative.</p>
+  <div id="auth-panel" class="card" style="padding:18px;margin:16px 0">
+    <button id="google-login" class="wide" type="button">Continuer avec Google</button>
+    <div style="text-align:center;margin:14px 0" class="sub">ou avec ton adresse e-mail</div>
+    <form id="auth-form">
+      <label for="auth-pseudo" id="pseudo-label" class="hide">Nom d’utilisateur / pseudo</label>
+      <input id="auth-pseudo" class="hide" autocomplete="nickname" maxlength="40" placeholder="Ton pseudo" style="width:100%;box-sizing:border-box;margin:6px 0 12px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)">
+      <label for="auth-email">Adresse e-mail</label>
+      <input id="auth-email" type="email" autocomplete="email" required placeholder="nom@exemple.com" style="width:100%;box-sizing:border-box;margin:6px 0 12px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)">
+      <label for="auth-password">Mot de passe</label>
+      <input id="auth-password" type="password" autocomplete="current-password" minlength="6" required placeholder="6 caractères minimum" style="width:100%;box-sizing:border-box;margin:6px 0 12px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)">
+      <button id="email-submit" class="wide" type="submit">Se connecter</button>
+    </form>
+    <button id="auth-toggle" type="button" class="wide" style="margin-top:10px">Créer un compte</button>
+    <p id="auth-message" role="status" aria-live="polite" class="sub" style="margin:12px 0 0"></p>
+  </div>
+  <div id="user-panel" class="card hide" style="padding:18px;margin:16px 0">
+    <h3 id="profile-name">Profil utilisateur</h3><p id="profile-email" class="sub"></p>
+    <button id="logout" type="button" class="wide">Se déconnecter</button>
+    <h3 style="margin-top:22px">Statistiques synchronisées</h3>
+    <div id="profile-stats" class="sub">Chargement des statistiques…</div>
+    <p id="sync-status" class="sub" role="status"></p>
+  </div>
+</section>
+
 
 <script>
 const $=s=>document.querySelector(s);
@@ -588,7 +619,7 @@ function testVoice(){unlockAudio();say('Série 1')}
 ['#vol','#vol2'].forEach(id=>{$(id).oninput=e=>setVol(e.target.value);$(id).onchange=testVol});
 ['#vvol','#vvol2'].forEach(id=>{$(id).oninput=e=>{S.vvol=+e.target.value;save();draw()};$(id).onchange=testVoice});
 function buzz(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
-function show(id){['setup','run','done','perf','detail','recap'].forEach(x=>$('#'+x).classList.toggle('hide',x!==id));document.body.className='';$('#tabs').classList.toggle('hide',id==='run');document.querySelectorAll('#tabs [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===(id==='perf'?'perf':'setup')))}
+function show(id){['setup','run','done','perf','detail','recap','profile'].forEach(x=>{const el=$('#'+x);if(el)el.classList.toggle('hide',x!==id)});document.body.className='';$('#tabs').classList.toggle('hide',id==='run');document.querySelectorAll('#tabs [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===(id==='perf'?'perf':id==='profile'?'profile':'setup')));if(id==='profile'&&window.__refreshProfile)window.__refreshProfile()}
 const fmt=s=>{const m=Math.floor(s/60);return m?m+':'+String(s%60).padStart(2,'0'):String(s)};
 
 function setPhase(p,secs){
@@ -697,12 +728,12 @@ $('.ringbox').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();
 let P=[],PR=[],G=[];try{P=JSON.parse(localStorage.getItem('emomPerf')||'[]');PR=JSON.parse(localStorage.getItem('emomProg')||'[]');G=JSON.parse(localStorage.getItem('emomGoals')||'[]')}catch(e){}
 let pref=null;
 const setSync=ok=>$('#p-sync').textContent=ok?'Sauvegarde synchronisée avec ton compte.':'Sauvegarde sur cet appareil uniquement.';
-const saveP=()=>{try{localStorage.setItem('emomPerf',JSON.stringify(P));localStorage.setItem('emomProg',JSON.stringify(PR));localStorage.setItem('emomGoals',JSON.stringify(G))}catch(e){}if(pref)pref.set({list:P,prog:PR,goals:G}).catch(()=>setSync(false))};
+const saveP=()=>{try{localStorage.setItem('emomPerf',JSON.stringify(P));localStorage.setItem('emomProg',JSON.stringify(PR));localStorage.setItem('emomGoals',JSON.stringify(G))}catch(e){}if(pref)pref.set({list:P,prog:PR,goals:G}).catch(()=>setSync(false));if(window.__firebaseSave)window.__firebaseSave()};
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const today=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
 const fd=d=>d.split('-').reverse().join('/');
 $('#p-date').value=today();
-document.querySelectorAll('#tabs [data-t]').forEach(b=>b.onclick=()=>{show(b.dataset.t==='perf'?'perf':'setup');if(b.dataset.t==='perf'){drawP();drawGoals()}});
+document.querySelectorAll('#tabs [data-t]').forEach(b=>b.onclick=()=>{show(b.dataset.t==='perf'?'perf':b.dataset.t==='profile'?'profile':'setup');if(b.dataset.t==='perf'){drawP();drawGoals()}});
 const T=['Pronation','Neutre','Supination'].flatMap(g=>['large','normal','serré'].map(w=>g+' '+w));
 const V={Tractions:T,HSPU:['Clean','Badform','Deep']};
 const kg=w=>String(w).replace('.',',')+' kg';
@@ -871,18 +902,7 @@ $('#vbtn').onclick=e=>{e.stopPropagation();$('#vpop').classList.toggle('hide')};
 document.addEventListener('click',e=>{if(!e.target.closest('#vpop'))$('#vpop').classList.add('hide')});
 (function loop(){if(R&&R.dur&&!R.paused&&!$('#run').classList.contains('hide')){const f=Math.max(0,Math.min(1,(R.end-Date.now())/R.dur));$('#ring').style.strokeDashoffset=578.05*(1-f);$('#tbar').style.width=(f*100)+'%'}requestAnimationFrame(loop)})();
 drawP();setSync(false);
-(async()=>{try{
-  const [db,user]=await Promise.all([claude.use('db'),claude.use('user')]);
-  const uid=user&&await user.id();if(!db||!uid)return;
-  const ref=db.doc('data/users/'+uid+'/perf'),snap=await ref.get();
-  const d=snap.exists?snap.data():{},remote=d.list||[],rp=d.prog||[],rg=d.goals||[];let synced=false;
-  try{synced=localStorage.getItem('emomSynced')==='1'}catch(e){}
-  if(synced){P=remote.slice();PR=rp.slice();G=rg.map(x=>({...x}))}
-  else{const ids=new Set(P.map(e=>e.id)),pi=new Set(PR.map(e=>e.id));P=P.concat(remote.filter(e=>!ids.has(e.id)));PR=PR.concat(rp.filter(e=>!pi.has(e.id)));const gi=new Set(G.map(e=>e.id));G=G.concat(rg.filter(e=>!gi.has(e.id)).map(x=>({...x})))}
-  await ref.set({list:P,prog:PR,goals:G});pref=ref;
-  try{localStorage.setItem('emomSynced','1')}catch(e){}
-  saveP();setSync(true);drawP();drawEx();drawGoals();
-}catch(e){}})();
+
 
 /* écran allumé pendant la séance : vidéo muette (lancée au geste de l'utilisateur) + Wake Lock + vidéo issue d'un canvas en dernier recours */
 let nsVideo=null,csVideo=null,csTimer=null,awakeOn=false,vOk=false;
@@ -1019,7 +1039,109 @@ $('#bk-rep').onclick=()=>{const b=$('#bk-rep');if(!BK)return;
   if(!b.dataset.armed){b.dataset.armed=1;b.textContent='Sûr ? Re-touche';setTimeout(()=>{delete b.dataset.armed;b.textContent='Remplacer'},3000);return}
   delete b.dataset.armed;b.textContent='Remplacer';
   P=BK.perf;G=BK.goals;PR=BK.presets;if(BK.settings){Object.assign(S,BK.settings);S.stop=false}bkDone('remplacées')};
-window.__ready=1;draw();
+window.__emomBridge={getData:()=>({perf:P,goals:G,presets:PR}),setData:d=>{P=Array.isArray(d.perf)?d.perf:[];G=Array.isArray(d.goals)?d.goals:[];PR=Array.isArray(d.presets)?d.presets:[];saveP();drawP();drawGoals();drawEx();draw()}};window.__ready=1;draw();
 </script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBfhY1OoWLPQGTCVrukjUM57GDJYLL8LNg",
+  authDomain: "emom-pro.firebaseapp.com",
+  projectId: "emom-pro",
+  storageBucket: "emom-pro.firebasestorage.app",
+  messagingSenderId: "601384809892",
+  appId: "1:601384809892:web:931b4db66405d8b3ac3d31",
+  measurementId: "G-K0XPCZF74Z"
+};
+const app=initializeApp(firebaseConfig), auth=getAuth(app), db=getFirestore(app);
+const $=s=>document.querySelector(s);
+const authPanel=$("#auth-panel"),userPanel=$("#user-panel"),form=$("#auth-form");
+let isRegister=false,currentUser=null,writeQueue=Promise.resolve(),loadingRemote=false;
+const msg=t=>$("#auth-message").textContent=t;
+const friendlyError=e=>({
+ "auth/email-already-in-use":"Cette adresse e-mail possède déjà un compte.",
+ "auth/invalid-email":"Adresse e-mail invalide.",
+ "auth/weak-password":"Mot de passe trop faible : utilise au moins 6 caractères.",
+ "auth/invalid-credential":"Adresse e-mail ou mot de passe incorrect.",
+ "auth/popup-closed-by-user":"Fenêtre Google fermée avant la fin de la connexion.",
+ "auth/popup-blocked":"La fenêtre de connexion a été bloquée par le navigateur.",
+ "auth/unauthorized-domain":"Domaine non autorisé dans Firebase Authentication. Ajoute le domaine de GitHub Pages dans les domaines autorisés.",
+ "auth/network-request-failed":"Erreur réseau. Vérifie ta connexion puis réessaie."
+}[e?.code]||"Une erreur est survenue. Vérifie la configuration Firebase et réessaie.");
+function setMode(register){
+ isRegister=register;
+ $("#pseudo-label").classList.toggle("hide",!register);$("#auth-pseudo").classList.toggle("hide",!register);
+ $("#auth-pseudo").required=register;
+ $("#auth-password").autocomplete=register?"new-password":"current-password";
+ $("#email-submit").textContent=register?"Créer mon compte":"Se connecter";
+ $("#auth-toggle").textContent=register?"J’ai déjà un compte":"Créer un compte";
+ msg("");
+}
+$("#auth-toggle").addEventListener("click",()=>setMode(!isRegister));
+$("#google-login").addEventListener("click",async()=>{
+ msg("Connexion à Google…");
+ try{const provider=new GoogleAuthProvider();await signInWithPopup(auth,provider);msg("")}catch(e){msg(friendlyError(e))}
+});
+form.addEventListener("submit",async e=>{
+ e.preventDefault();msg("Traitement en cours…");
+ const email=$("#auth-email").value.trim(),password=$("#auth-password").value,pseudo=$("#auth-pseudo").value.trim();
+ try{
+  if(isRegister){
+   if(!pseudo){msg("Choisis un pseudo.");return}
+   const cred=await createUserWithEmailAndPassword(auth,email,password);
+   await updateProfile(cred.user,{displayName:pseudo});
+   await setDoc(doc(db,"users",cred.user.uid),{profile:{displayName:pseudo,email:cred.user.email},updatedAt:serverTimestamp()},{merge:true});
+  }else await signInWithEmailAndPassword(auth,email,password);
+  msg("");
+ }catch(err){msg(friendlyError(err))}
+});
+$("#logout").addEventListener("click",async()=>{try{await signOut(auth)}catch(e){$("#sync-status").textContent=friendlyError(e)}});
+function localData(){return window.__emomBridge?.getData()||{perf:[],goals:[],presets:[]}}
+function stats(){
+ const d=localData(),n=d.perf.length,g=d.goals.length,prs=d.presets.length;
+ $("#profile-stats").textContent=`${n} performance(s) · ${g} objectif(s) · ${prs} programme(s) enregistré(s)`;
+}
+window.__refreshProfile=()=>{if(currentUser)stats()};
+window.__firebaseSave=()=>{
+ if(!currentUser||loadingRemote)return;
+ const u=currentUser,d=localData();
+ writeQueue=writeQueue.then(()=>setDoc(doc(db,"users",u.uid),{
+  profile:{displayName:u.displayName||u.email?.split("@")[0]||"Sportif",email:u.email||""},
+  emom:{perf:d.perf,goals:d.goals,presets:d.presets},
+  updatedAt:serverTimestamp()
+ },{merge:true})).then(()=>{if(currentUser?.uid===u.uid)$("#sync-status").textContent="Synchronisation terminée."})
+ .catch(e=>{if(currentUser?.uid===u.uid)$("#sync-status").textContent="Échec de synchronisation. Vérifie les règles Firestore et ta connexion."});
+};
+onAuthStateChanged(auth,async user=>{
+ currentUser=user||null;
+ authPanel.classList.toggle("hide",!!user);userPanel.classList.toggle("hide",!user);
+ if(!user){$("#sync-status").textContent="";setMode(false);return}
+ $("#profile-name").textContent=user.displayName||user.email?.split("@")[0]||"Sportif";
+ $("#profile-email").textContent=user.email||"Compte Google";
+ $("#sync-status").textContent="Récupération des données…";
+ try{
+  loadingRemote=true;
+  const snap=await getDoc(doc(db,"users",user.uid));
+  const remote=snap.exists()?snap.data():{};
+  const cloud=remote.emom;
+  if(cloud&&Array.isArray(cloud.perf)){
+   // Le cloud est la référence à la connexion pour garantir la reprise sur un autre appareil.
+   window.__emomBridge?.setData({perf:cloud.perf,goals:cloud.goals||[],presets:cloud.presets||[]});
+  }else{
+   const d=localData();
+   await setDoc(doc(db,"users",user.uid),{
+    profile:{displayName:user.displayName||user.email?.split("@")[0]||"Sportif",email:user.email||""},
+    emom:{perf:d.perf,goals:d.goals,presets:d.presets},updatedAt:serverTimestamp()
+   },{merge:true});
+  }
+  $("#sync-status").textContent="Données chargées et synchronisées avec Firestore.";
+ }catch(e){$("#sync-status").textContent="Impossible de charger Firestore. Vérifie les règles de sécurité et la configuration du projet."}
+ finally{loadingRemote=false;stats()}
+});
+</script>
+
 </body>
 </html>
