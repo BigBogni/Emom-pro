@@ -414,8 +414,6 @@ button.frrow:active{opacity:.6}
 #tabs>button.has-badge::after{content:"";position:absolute;top:8px;right:20%;width:11px;height:11px;border-radius:50%;background:#E5484D;border:2px solid var(--card)}
 
 /* photos de profil : toujours bien rondes (correctif Safari : le cercle ne rognait pas l'image) */
-.avatar{-webkit-mask-image:-webkit-radial-gradient(white,black);mask-image:radial-gradient(circle,#000 99%,transparent 100%);isolation:isolate;transform:translateZ(0)}
-.avatar img{width:100%;height:100%;object-fit:cover;object-position:center;border-radius:50%;display:block;flex:none;aspect-ratio:1/1}
 .avatarbtn{overflow:visible}
 
 /* ===== profil en deux pages + description ===== */
@@ -432,6 +430,21 @@ button.frrow:active{opacity:.6}
 .seg button.has-dot::after{content:"";position:absolute;top:6px;right:12px;width:9px;height:9px;border-radius:50%;background:#E5484D;border:2px solid var(--card)}
 #user-panel.pgin-f,#social.pgin-f{animation:slF .42s cubic-bezier(.2,.8,.2,1) both}
 #user-panel.pgin-b,#social.pgin-b{animation:slB .42s cubic-bezier(.2,.8,.2,1) both}
+
+/* case « lestée » */
+.chk{display:flex;align-items:center;gap:12px;margin:2px 0 12px;font-weight:600;font-size:16px;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.chk input{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.chk .box{width:26px;height:26px;border-radius:9px;border:2px solid var(--line);background:var(--bg);display:flex;align-items:center;justify-content:center;transition:background-color .2s,border-color .2s,transform .15s;flex:none}
+.chk .box::after{content:"";width:7px;height:12px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) scale(0);margin-top:-2px;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.chk input:checked+.box{background:linear-gradient(160deg,color-mix(in srgb,var(--glow) 78%,#fff),var(--glow));border-color:var(--glow)}
+.chk input:checked+.box::after{transform:rotate(45deg) scale(1)}
+.chk:active .box{transform:scale(.9)}
+.chk input:focus-visible+.box{outline:3px solid #FFB020;outline-offset:2px}
+
+/* photo de profil : remplit tout le rond, fin contour bleu (identique sur mon profil et chez les amis) */
+.avatar.photo{background-size:cover;background-position:center;background-repeat:no-repeat;background-color:var(--work);border:2px solid var(--work);color:transparent}
+.avatarbtn{display:block;position:relative;width:76px;height:76px;flex:none;border-radius:50%;cursor:pointer;-webkit-tap-highlight-color:transparent;overflow:visible}
+.avatarbtn .avatar{display:block;width:76px;height:76px}
 </style>
 </head>
 <body>
@@ -558,8 +571,14 @@ button.frrow:active{opacity:.6}
 </div>
   <div id="p-goals" class="hide">
   <div class="card">
-    <label>Mouvement<select id="g-mv"></select></label>
-    <div id="g-ol" class="hide"><label>Nom du mouvement<input type="text" id="g-name" maxlength="40" placeholder="Ex. Pistol squat"></label><label>Unité<select id="g-unit"><option value="reps">Répétitions</option><option value="kg">Charge (kg)</option></select></label></div>
+    <div class="pk">
+      <label>Mouvement<select id="g-mv"></select></label>
+      <label id="g-vl">Variante<select id="g-v"></select></label>
+      <label id="g-ol" class="pk-wide hide">Nom du mouvement<input type="text" id="g-name" maxlength="40" placeholder="Ex. Pistol squat"></label>
+      <label id="g-vol" class="pk-wide hide">Nom de la variante<input type="text" id="g-vo" maxlength="40" placeholder="Ex. Archer"></label>
+    </div>
+    <label class="chk"><input type="checkbox" id="g-lest"><span class="box"></span>Lestée</label>
+    <p class="sub" style="margin:-6px 0 12px;font-size:13px">Cochée : niveau et objectif en kg (charge maximale sur 1 rep). Sinon : en répétitions.</p>
     <div class="grid2"><label>Niveau actuel <span id="g-u1"></span><input type="number" id="g-cur" inputmode="numeric" min="0" step="1" value="0"></label><label>Objectif <span id="g-u2"></span><input type="number" id="g-tgt" inputmode="numeric" min="0" step="1"></label></div>
     <p class="sub" id="g-msg" style="margin:0 0 8px;font-size:14px"></p>
     <button class="big" id="g-add"><span class="ic-l"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-target"/></svg></span>Ajouter l'objectif</button>
@@ -607,7 +626,7 @@ button.frrow:active{opacity:.6}
     <p id="auth-message" role="status" aria-live="polite" class="sub" style="margin:12px 0 0"></p>
   </div>
   <div id="user-panel" class="card hide" style="padding:18px;margin:16px 0">
-    <div class="me"><button id="avatar-btn" type="button" class="avatarbtn" aria-label="Changer la photo de profil"></button><div style="min-width:0"><h3 id="profile-name">Profil utilisateur</h3><p id="profile-email" class="sub"></p></div></div>
+    <div class="me"><div id="avatar-btn" class="avatarbtn" role="button" tabindex="0" aria-label="Changer la photo de profil"></div><div style="min-width:0"><h3 id="profile-name">Profil utilisateur</h3><p id="profile-email" class="sub"></p></div></div>
     <label class="biolab" for="bio-in">Description</label>
     <textarea id="bio-in" maxlength="160" rows="3" placeholder="Présente-toi en quelques mots : discipline, niveau, objectifs…"></textarea>
     <div class="biorow"><span id="bio-count" class="sub">0/160</span><button id="bio-save" type="button" class="pillbtn">Enregistrer</button></div>
@@ -863,7 +882,7 @@ $('#lap').onclick=()=>{if(!R||!R.amrap||R.paused)return;
 $('.ringbox').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('.ringbox').click()}};
 
 /* performances */
-let P=[],PR=[],G=[];try{P=JSON.parse(localStorage.getItem('emomPerf')||'[]');PR=JSON.parse(localStorage.getItem('emomProg')||'[]');G=JSON.parse(localStorage.getItem('emomGoals')||'[]')}catch(e){}
+let P=[],PR=[],G=[];try{P=JSON.parse(localStorage.getItem('emomPerf')||'[]');PR=JSON.parse(localStorage.getItem('emomProg')||'[]');G=JSON.parse(localStorage.getItem('emomGoals')||'[]').map(normGoal)}catch(e){}
 let pref=null;
 const setSync=ok=>$('#p-sync').textContent=ok?'Sauvegarde synchronisée avec ton compte.':'Sauvegarde sur cet appareil uniquement.';
 const saveP=()=>{try{localStorage.setItem('emomPerf',JSON.stringify(P));localStorage.setItem('emomProg',JSON.stringify(PR));localStorage.setItem('emomGoals',JSON.stringify(G))}catch(e){}if(pref)pref.set({list:P,prog:PR,goals:G}).catch(()=>setSync(false));if(window.__firebaseSave)window.__firebaseSave()};
@@ -1067,20 +1086,27 @@ setInterval(()=>{if(!awakeOn||lock)return;const v=nsVideo&&!nsVideo.paused?nsVid
 document.addEventListener('visibilitychange',()=>{if(awakeOn&&document.visibilityState==='visible')keepAwake()});
 
 /* ===== Objectifs ===== */
-const GM=[{k:'pompes',n:'Max pompes',u:'reps',i:'dumbbell',ex:'Pompes'},{k:'tractions',n:'Max tractions',u:'reps',i:'dumbbell',ex:'Tractions'},{k:'dips',n:'Max dips',u:'reps',i:'dumbbell',ex:'Dips'},{k:'dipsL',n:'Max dips lestés',u:'kg',i:'weight',ex:'Dips',l:1},{k:'hspu',n:'Max HSPU',u:'reps',i:'dumbbell',ex:'HSPU'},{k:'hspuL',n:'Max HSPU lestés',u:'kg',i:'weight',ex:'HSPU',l:1},{k:'tractionsL',n:'Max tractions lestées',u:'kg',i:'weight',ex:'Tractions',l:1},{k:'mu',n:'Max muscle up',u:'reps',i:'dumbbell',ex:'Muscle up'},{k:'muL',n:'Max muscle up lestés',u:'kg',i:'weight',ex:'Muscle up',l:1},{k:'t1b',n:'Max traction 1 bras',u:'reps',i:'dumbbell'},{k:'autre',n:'Autre',u:'reps',i:'star'}];
+const GM=[{k:'pompes',n:'Pompes',ex:'Pompes'},{k:'tractions',n:'Tractions',ex:'Tractions'},{k:'dips',n:'Dips',ex:'Dips'},{k:'hspu',n:'HSPU',ex:'HSPU'},{k:'mu',n:'Muscle up',ex:'Muscle up'},{k:'t1b',n:'Traction 1 bras'},{k:'autre',n:'Autre'}];
+function normGoal(g){if(!g||typeof g!=='object')return g;const LEG={dipsL:'dips',hspuL:'hspu',tractionsL:'tractions',muL:'mu'},o={...g};
+  if(LEG[o.k]){o.k=LEG[o.k];o.l=true}if(o.k==='autre'&&o.u==='kg')o.l=true;o.l=!!o.l;o.v=typeof o.v==='string'?o.v:'';delete o.u;return o}
 const gm=g=>GM.find(x=>x.k===g.k)||GM[GM.length-1];
-const gname=g=>g.k==='autre'?(g.name||'Autre'):gm(g).n;
-const gunit=g=>g.k==='autre'?(g.u||'reps'):gm(g).u;
+const gname=g=>(g.k==='autre'?(g.name||'Autre'):gm(g).n)+(g.v?' · '+g.v:'')+(g.l?' · avec lest':'');
+const gunit=g=>g.l?'kg':'reps';
+const gicon=g=>g.k==='autre'?'star':(g.l?'weight':'dumbbell');
 const fv=(v,u)=>String(+(+v).toFixed(2)).replace('.',',')+(u==='kg'?' kg':(+v>1?' reps':' rep'));
 const gstep=u=>u==='kg'?2.5:1;
 const gpg=g=>g.target>0?Math.max(0,Math.min(1,g.cur/g.target)):0;
 let GEDIT=null,partyT=null,toastT=null;
 $('#g-mv').innerHTML=GM.map(m=>'<option value="'+m.k+'">'+m.n+'</option>').join('');
-function gForm(){const k=$('#g-mv').value,au=k==='autre',u=au?$('#g-unit').value:GM.find(x=>x.k===k).u;
-  $('#g-ol').classList.toggle('hide',!au);
-  ['#g-u1','#g-u2'].forEach(i=>$(i).textContent='('+(u==='kg'?'kg':'reps')+')');
-  ['#g-cur','#g-tgt'].forEach(i=>{$(i).step=u==='kg'?'0.5':'1';$(i).inputMode=u==='kg'?'decimal':'numeric'})}
-$('#g-mv').onchange=gForm;$('#g-unit').onchange=gForm;gForm();
+function gVarOpts(k){const m=GM.find(x=>x.k===k);if(!m||k==='autre')return[];return[['','Aucune'],...((V[m.ex]||[]).map(x=>[x,x])),['__o','Autre']]}
+function gForm(){const k=$('#g-mv').value,au=k==='autre',l=$('#g-lest').checked,vs=$('#g-v');
+  $('#g-ol').classList.toggle('hide',!au);$('#g-vl').classList.toggle('hide',au);
+  if(vs.dataset.k!==k){vs.innerHTML=gVarOpts(k).map(o=>'<option value="'+esc(o[0])+'">'+esc(o[1])+'</option>').join('');vs.dataset.k=k}
+  $('#g-vol').classList.toggle('hide',au||vs.value!=='__o');
+  ['#g-u1','#g-u2'].forEach(i=>$(i).textContent='('+(l?'kg':'reps')+')');
+  ['#g-cur','#g-tgt'].forEach(i=>{$(i).step=l?'0.5':'1';$(i).inputMode=l?'decimal':'numeric'})}
+$('#g-mv').onchange=gForm;$('#g-v').onchange=gForm;$('#g-lest').onchange=gForm;gForm();
+const gVal=()=>{const k=$('#g-mv').value;if(k==='autre')return'';const v=$('#g-v').value;return v==='__o'?$('#g-vo').value.trim():v};
 function ghist(g){const d=today(),l=g.hist[g.hist.length-1];if(l&&l.d===d)l.v=g.cur;else g.hist.push({d,v:g.cur})}
 function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),3000)}
 let celQ=[];
@@ -1095,20 +1121,24 @@ const party=g=>celebrate({icon:'trophy',title:'Objectif atteint !',text:gname(g)
 $('#party').onclick=closeCel;
 function gDone(g){g.done=true;g.doneDate=today();ghist(g);party(g)}
 function gStopEdit(){GEDIT=null;$('#g-add').innerHTML='<span class="ic-l">'+ic('target')+'</span>Ajouter l\'objectif';$('#g-cancel').classList.add('hide');$('#g-msg').textContent=''}
-function gEdit(id){const g=G.find(x=>x.id===id);if(!g)return;GEDIT=id;$('#g-mv').value=g.k;$('#g-unit').value=g.u||'reps';$('#g-name').value=g.name||'';gForm();
+function gEdit(id){const g=G.find(x=>x.id===id);if(!g)return;GEDIT=id;$('#g-mv').value=g.k;$('#g-v').dataset.k='';gForm();
+  const vs=$('#g-v');$('#g-vo').value='';if(g.v){const has=[...vs.options].some(o=>o.value===g.v);vs.value=has?g.v:'__o';if(!has)$('#g-vo').value=g.v}
+  $('#g-lest').checked=!!g.l;$('#g-name').value=g.name||'';gForm();
   $('#g-cur').value=g.cur;$('#g-tgt').value=g.target;$('#g-add').textContent='Enregistrer la modification';$('#g-cancel').classList.remove('hide');$('#perf').scrollIntoView({behavior:'smooth'})}
 $('#g-cancel').onclick=gStopEdit;
 $('#g-add').onclick=()=>{
-  const k=$('#g-mv').value,au=k==='autre',name=$('#g-name').value.trim(),u=au?$('#g-unit').value:GM.find(x=>x.k===k).u,cur=parseFloat($('#g-cur').value),tgt=parseFloat($('#g-tgt').value),msg=$('#g-msg');
+  const k=$('#g-mv').value,au=k==='autre',name=$('#g-name').value.trim(),l=$('#g-lest').checked,cur=parseFloat($('#g-cur').value),tgt=parseFloat($('#g-tgt').value),msg=$('#g-msg');
   msg.textContent='';
   if(au&&!name){$('#g-name').focus();msg.textContent='Donne un nom au mouvement.';return}
+  if(!au&&$('#g-v').value==='__o'&&!$('#g-vo').value.trim()){$('#g-vo').focus();msg.textContent='Donne un nom à la variante.';return}
   if(!(cur>=0)||!(tgt>0)){msg.textContent="Renseigne ton niveau actuel et ton objectif.";return}
+  const v=gVal();
   if(GEDIT){const g=G.find(x=>x.id===GEDIT);
-    if(g){g.k=k;g.name=au?name:'';g.u=au?u:'';g.cur=cur;g.target=tgt;if(cur<g.start)g.start=cur;ghist(g);
+    if(g){g.k=k;g.name=au?name:'';g.v=v;g.l=l;delete g.u;g.cur=cur;g.target=tgt;if(cur<g.start)g.start=cur;ghist(g);
       if(g.cur>=g.target&&!g.done)gDone(g);else if(g.cur<g.target&&g.done){g.done=false;g.doneDate=''}}
     gStopEdit()}
   else{if(tgt<=cur){msg.textContent="L'objectif doit être supérieur à ton niveau actuel.";return}
-    G.unshift({id:Date.now(),k,name:au?name:'',u:au?u:'',start:cur,cur,target:tgt,created:today(),done:false,doneDate:'',hist:[{d:today(),v:cur}]});$('#g-tgt').value='';$('#g-name').value=''}
+    G.unshift({id:Date.now(),k,name:au?name:'',v,l,start:cur,cur,target:tgt,created:today(),done:false,doneDate:'',hist:[{d:today(),v:cur}]});$('#g-tgt').value='';$('#g-name').value='';$('#g-vo').value=''}
   saveP();drawGoals()};
 function paintGoal(g){const c=document.querySelector('.gcard[data-id="'+g.id+'"]');if(!c)return;const p=Math.floor(gpg(g)*100),i=c.querySelector('input[data-gi]');
   c.querySelector('.pbar i').style.width=p+'%';c.querySelector('.pct').textContent=p+' %';c.querySelector('.grem').textContent='Encore '+fv(g.target-g.cur,gunit(g));
@@ -1129,14 +1159,14 @@ function drawGoals(){
   const act=G.filter(g=>!g.done),don=G.filter(g=>g.done).sort((a,b)=>(b.doneDate||'').localeCompare(a.doneDate||'')||b.id-a.id);
   $('#g-stats').innerHTML='<span>'+ic('target')+act.length+' en cours</span><span>'+ic('trophy')+don.length+' accompli'+(don.length>1?'s':'')+'</span>';
   $('#g-list').innerHTML=act.map(g=>{const u=gunit(g),p=Math.floor(gpg(g)*100);
-    return '<div class="gcard'+(p>=85?' near':'')+'" data-id="'+g.id+'"><div class="gh"><span class="gi">'+ic(gm(g).i)+'</span><div class="gt"><b>'+esc(gname(g))+'</b><small>Départ '+fv(g.start,u)+' → objectif '+fv(g.target,u)+'</small></div>'+gActs(g.id)+'</div><div class="pbar"><i style="width:0" data-w="'+p+'"></i><span class="pct">'+p+' %</span></div><div class="gl"><div class="step"><button class="rd" data-gm="'+g.id+'" aria-label="Moins">−</button><input type="number" class="num" data-gi="'+g.id+'" inputmode="decimal" step="0.5" min="0" value="'+g.cur+'" aria-label="Niveau actuel"><button class="rd" data-gp="'+g.id+'" aria-label="Plus">+</button></div><div class="gr"><small>Niveau actuel ('+(u==='kg'?'kg':'reps')+')</small><span class="grem">Encore '+fv(g.target-g.cur,u)+'</span></div></div></div>'}).join('');
+    return '<div class="gcard'+(p>=85?' near':'')+'" data-id="'+g.id+'"><div class="gh"><span class="gi">'+ic(gicon(g))+'</span><div class="gt"><b>'+esc(gname(g))+'</b><small>Départ '+fv(g.start,u)+' → objectif '+fv(g.target,u)+'</small></div>'+gActs(g.id)+'</div><div class="pbar"><i style="width:0" data-w="'+p+'"></i><span class="pct">'+p+' %</span></div><div class="gl"><div class="step"><button class="rd" data-gm="'+g.id+'" aria-label="Moins">−</button><input type="number" class="num" data-gi="'+g.id+'" inputmode="decimal" step="0.5" min="0" value="'+g.cur+'" aria-label="Niveau actuel"><button class="rd" data-gp="'+g.id+'" aria-label="Plus">+</button></div><div class="gr"><small>Niveau actuel ('+(u==='kg'?'kg':'reps')+')</small><span class="grem">Encore '+fv(g.target-g.cur,u)+'</span></div></div></div>'}).join('');
   $('#g-empty').classList.toggle('hide',act.length>0||don.length>0);
   $('#g-doneN').textContent='('+don.length+')';
   $('#g-donelist').innerHTML=don.length?don.map(g=>{const u=gunit(g),days=g.created&&g.doneDate?Math.max(0,Math.round((new Date(g.doneDate)-new Date(g.created))/864e5)):0;
     return '<div class="gcard dn" data-id="'+g.id+'"><div class="gh"><span class="gi">'+ic('trophy')+'</span><div class="gt"><b>'+esc(gname(g))+'</b><small>'+fv(g.start,u)+' → '+fv(g.target,u)+' · atteint le '+(g.doneDate?fd(g.doneDate):'')+(days?' · en '+days+' j':'')+'</small></div>'+gActs(g.id)+'</div></div>'}).join(''):'<p class="sub" style="margin:0">Aucun objectif accompli pour l\'instant.</p>';
   requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('#g-list .pbar i').forEach(i=>i.style.width=i.dataset.w+'%')))}
 function goalsFrom(e){let ch=false;
-  G.forEach(g=>{if(g.done)return;const m=gm(g);if(!m.ex||m.ex!==e.ex)return;const cand=m.l?(e.w||0):(e.w?0:e.r);
+  G.forEach(g=>{if(g.done)return;const m=gm(g);if(!m.ex||m.ex!==e.ex)return;if(g.v&&e.v!==g.v)return;const cand=g.l?(e.w||0):(e.w?0:e.r);
     if(cand>g.cur){g.cur=cand;ghist(g);ch=true;toast('Objectif mis à jour : '+gname(g)+' : '+fv(cand,gunit(g)));if(g.cur>=g.target)gDone(g)}});
   if(ch){saveP();drawGoals()}}
 function setPSub(k){S.psub=k;save();$('#p-train').classList.toggle('hide',k!=='train');$('#p-goals').classList.toggle('hide',k!=='goals');
@@ -1162,7 +1192,7 @@ $('#bk-copy').onclick=async()=>{const txt=JSON.stringify(bkData(),null,1);$('#bk
   if(!ok){const t=$('#bk-text');t.focus();t.select();try{ok=document.execCommand('copy')}catch(e){}}
   bkMsg(ok?'Données copiées. Colle-les dans une note ou un message pour les garder.':'Sélectionne le texte ci-dessous et copie-le.')};
 const okP=x=>x&&typeof x.ex==='string'&&isFinite(x.s)&&isFinite(x.r),okG=x=>x&&typeof x.k==='string'&&isFinite(x.cur)&&isFinite(x.target)&&Array.isArray(x.hist),okO=x=>x&&typeof x==='object';
-function bkParse(txt){try{const o=JSON.parse(txt);if(!o||o.app!=='emom-pro'||!Array.isArray(o.perf))throw 0;return{perf:o.perf.filter(okP),goals:(o.goals||[]).filter(okG),presets:(o.presets||[]).filter(okO),settings:okO(o.settings)?o.settings:null,date:o.date||''}}catch(e){return null}}
+function bkParse(txt){try{const o=JSON.parse(txt);if(!o||o.app!=='emom-pro'||!Array.isArray(o.perf))throw 0;return{perf:o.perf.filter(okP),goals:(o.goals||[]).filter(okG).map(normGoal),presets:(o.presets||[]).filter(okO),settings:okO(o.settings)?o.settings:null,date:o.date||''}}catch(e){return null}}
 function bkLoad(txt){BK=bkParse(txt);
   if(!BK){$('#bk-sum').classList.add('hide');bkMsg("Texte non reconnu : ce n'est pas une sauvegarde Emom Pro.");return}
   const a=BK.perf.length,b=BK.goals.length;
@@ -1180,9 +1210,9 @@ $('#bk-rep').onclick=()=>{const b=$('#bk-rep');if(!BK)return;
 
 /* ===== profil d'un ami : rendus en lecture seule ===== */
 const okGf=x=>x&&typeof x.k==='string'&&isFinite(x.cur)&&isFinite(x.target)&&isFinite(x.start);
-function friendGoalsHTML(goals){const L=(Array.isArray(goals)?goals:[]).filter(okGf),act=L.filter(g=>!g.done),don=L.filter(g=>g.done).sort((a,b)=>String(b.doneDate||'').localeCompare(String(a.doneDate||'')));
+function friendGoalsHTML(goals){const L=(Array.isArray(goals)?goals:[]).filter(okGf).map(normGoal),act=L.filter(g=>!g.done),don=L.filter(g=>g.done).sort((a,b)=>String(b.doneDate||'').localeCompare(String(a.doneDate||'')));
   const a=act.map(g=>{const u=gunit(g),p=Math.floor(gpg(g)*100);
-    return '<div class="gcard'+(p>=85?' near':'')+'"><div class="gh"><span class="gi">'+ic(gm(g).i)+'</span><div class="gt"><b>'+esc(gname(g))+'</b><small>Départ '+fv(g.start,u)+' → objectif '+fv(g.target,u)+'</small></div></div><div class="pbar"><i style="width:'+p+'%"></i><span class="pct">'+p+' %</span></div><div class="gl"><div class="gr" style="text-align:left"><small>Niveau actuel</small><span class="grem">'+fv(g.cur,u)+'</span></div><div class="gr"><small>Reste</small><span class="grem">'+fv(Math.max(0,g.target-g.cur),u)+'</span></div></div></div>'}).join('');
+    return '<div class="gcard'+(p>=85?' near':'')+'"><div class="gh"><span class="gi">'+ic(gicon(g))+'</span><div class="gt"><b>'+esc(gname(g))+'</b><small>Départ '+fv(g.start,u)+' → objectif '+fv(g.target,u)+'</small></div></div><div class="pbar"><i style="width:'+p+'%"></i><span class="pct">'+p+' %</span></div><div class="gl"><div class="gr" style="text-align:left"><small>Niveau actuel</small><span class="grem">'+fv(g.cur,u)+'</span></div><div class="gr"><small>Reste</small><span class="grem">'+fv(Math.max(0,g.target-g.cur),u)+'</span></div></div></div>'}).join('');
   const d=don.map(g=>{const u=gunit(g);return '<div class="gcard dn"><div class="gh"><span class="gi">'+ic('trophy')+'</span><div class="gt"><b>'+esc(gname(g))+'</b><small>'+fv(g.start,u)+' → '+fv(g.target,u)+(g.doneDate?' · atteint le '+esc(fd(String(g.doneDate))):'')+'</small></div></div></div>'}).join('');
   return (a||'<p class="sub">Aucun objectif en cours.</p>')+(don.length?'<h4 class="sec">Accomplis ('+don.length+')</h4>'+d:'')}
 const okPf=x=>x&&typeof x.ex==='string'&&isFinite(x.s)&&isFinite(x.r);
@@ -1193,7 +1223,7 @@ function friendPerfHTML(perf,filter){const L=friendPerfList(perf),asc=[...L].sor
   const rows=asc.filter(e=>!filter||lab(e)===filter).reverse();
   if(!rows.length)return '<p class="sub">Aucune performance partagée.</p>';
   return '<div class="tw"><table><thead><tr><th>Date</th><th>Exercice</th><th>Séries × reps</th><th>Durée</th><th>Total</th></tr></thead><tbody>'+rows.map(e=>'<tr><td>'+esc(fd(String(e.date||'')))+'</td><td>'+esc(lab(e))+(best[lab(e)].e===e?' <span class="rec">Record</span>':'')+'</td><td>'+(+e.s)+'×'+(+e.r)+'</td><td>'+(+e.d||0)+'s</td><td><b>'+tot(e)+'</b></td></tr>').join('')+'</tbody></table></div>'}
-window.__emomBridge={ic,friendGoalsHTML,friendPerfHTML,friendPerfLabels,getData:()=>({perf:P,goals:G,presets:PR}),setData:d=>{P=Array.isArray(d.perf)?d.perf:[];G=Array.isArray(d.goals)?d.goals:[];PR=Array.isArray(d.presets)?d.presets:[];saveP();drawP();drawGoals();drawEx();draw()}};window.__ready=1;draw();
+window.__emomBridge={ic,friendGoalsHTML,friendPerfHTML,friendPerfLabels,getData:()=>({perf:P,goals:G,presets:PR}),setData:d=>{P=Array.isArray(d.perf)?d.perf:[];G=Array.isArray(d.goals)?d.goals.map(normGoal):[];PR=Array.isArray(d.presets)?d.presets:[];saveP();drawP();drawGoals();drawEx();draw()}};window.__ready=1;draw();
 </script>
 
 <script type="module">
@@ -1276,8 +1306,9 @@ const uname=u=>u.displayName||u.email?.split("@")[0]||"Sportif";
 const hSan=n=>String(n||"").trim().toLowerCase();
 const pairId=(a,b)=>a<b?a+"_"+b:b+"_"+a;
 const initials=n=>(String(n||"?").trim().split(/\s+/).map(w=>w[0]).slice(0,2).join("")||"?").toUpperCase();
+const PHOTO_RE=/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/;
 function avatar(p,cls=""){const nm=p?.displayName||"?";
- return p?.photo&&/^data:image\//.test(p.photo)?`<span class="avatar ${cls}"><img alt="" src="${escH(p.photo)}"></span>`:`<span class="avatar ${cls}">${escH(initials(nm))}</span>`}
+ return p?.photo&&PHOTO_RE.test(p.photo)?`<span class="avatar photo ${cls}" role="img" aria-label="Photo de ${escH(nm)}" style="background-image:url('${p.photo}')"></span>`:`<span class="avatar ${cls}">${escH(initials(nm))}</span>`}
 let myProfile={},unsubFr=null,frList=[],profCache=new Map(),viewUid=null,searchRes=[];
 const sharedPayload=d=>myProfile.shareData===false?{private:true,perf:[],goals:[]}:{private:false,perf:d.perf,goals:d.goals};
 
@@ -1304,6 +1335,7 @@ function resizeImage(file,n){return new Promise((res,rej)=>{const img=new Image(
   x.drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,n,n);URL.revokeObjectURL(u);res(c.toDataURL("image/jpeg",.82))};
  img.onerror=()=>{URL.revokeObjectURL(u);rej(new Error("image"))};img.src=u})}
 $("#avatar-btn").addEventListener("click",()=>$("#photo-file").click());
+$("#avatar-btn").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();$("#photo-file").click()}});
 $("#photo-file").addEventListener("change",async e=>{
  const f=e.target.files[0];e.target.value="";if(!f||!currentUser)return;
  const msgP=t=>$("#photo-msg").textContent=t;msgP("Enregistrement de la photo…");
