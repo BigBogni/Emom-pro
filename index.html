@@ -685,6 +685,23 @@ button,.ringbox,.lapbtn,#tabs,.seg,.duo,.sw,.chk{-webkit-user-select:none;user-s
 #splash::after{content:"";position:absolute;left:50%;top:42%;width:120vmin;height:120vmin;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(110,140,255,.22) 0%,rgba(110,140,255,.08) 40%,rgba(110,140,255,0) 70%);pointer-events:none}
 #splash{background:#0A1030}
 .sp-logo img{box-shadow:0 0 0 1px rgba(255,255,255,.12),0 18px 40px rgba(61,92,240,.45)}
+
+/* ===== v5 : plein écran, changements de page sans clignotement, animation des boutons ronds ===== */
+/* le fond couvre tout l'écran (zone du bas comprise) : le dégradé n'est plus coupé avant la barre de l'iPhone */
+body{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:auto;background-size:100% 100%;background-attachment:scroll}
+/* plus de fondu depuis le transparent à chaque changement de page : c'était la cause du clignotement */
+.card:not(.hide),.row.adv,tbody tr,.pf,.gcard{animation:none}
+@keyframes slF{from{transform:translateX(34px)}to{transform:none}}
+@keyframes slB{from{transform:translateX(-34px)}to{transform:none}}
+/* boutons ronds : rebond + onde au toucher */
+.rd{position:relative}
+.rd::after{content:"";position:absolute;inset:0;border-radius:50%;background:color-mix(in srgb,var(--glow) 45%,transparent);opacity:0;pointer-events:none}
+.rep .rd::after,.rd.vb::after{background:rgba(255,255,255,.5)}
+.rd.tap{animation:rdTap .45s var(--ease)}
+.rd.tap::after{animation:rdRing .5s ease-out}
+@keyframes rdTap{0%{transform:scale(.8)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes rdRing{from{opacity:.7;transform:scale(1)}to{opacity:0;transform:scale(1.75)}}
+button.rd:active:not(:disabled){transform:scale(.85)}
 </style>
 </head>
 <body>
@@ -929,6 +946,9 @@ const fmtIn=v=>String(v).replace('.',',');
 ['gesturestart','gesturechange','gestureend'].forEach(ev=>document.addEventListener(ev,e=>e.preventDefault()));
 /* champs décimaux : chiffres, point ou virgule uniquement */
 document.addEventListener('input',e=>{const t=e.target;if(t&&t.matches&&t.matches('#g-cur,#g-tgt,#g-w,input[data-gi],#p-w,#s-w,#a-w,#y-w')){const v=t.value.replace(/[^0-9.,]/g,'');if(v!==t.value)t.value=v}});
+document.addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.closest('.rd');if(!b||b.disabled)return;b.classList.remove('tap');void b.offsetWidth;b.classList.add('tap');setTimeout(()=>b.classList.remove('tap'),520)},{capture:true,passive:true});
+/* ré-écrit un bloc seulement s'il a changé (évite de relancer les animations et de faire clignoter) */
+const setH=(el,h)=>{if(el.__h===h)return false;el.__h=h;el.innerHTML=h;return true};
 const RING={set off(v){const a=$('#ring'),b=$('#ringg');a.style.strokeDashoffset=v;if(b)b.style.strokeDashoffset=v}};
 let S={rounds:10,work:60,reps:10,inf:false,count:true,vol:70,voice:true,ex:[],mode:'emom',pstop:false,pm:null,aType:'time',aMin:10,aRounds:5,mv:[],stop:false,pStart:1,pStep:1,pMax:5,vgender:'m',mix:true,rstyle:'classic',theme:(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')};
 try{Object.assign(S,JSON.parse(localStorage.getItem('emom')||'{}'))}catch(e){}
@@ -1250,12 +1270,12 @@ $('#p-list').onclick=e=>{const d=e.target.closest('[data-id]'),ed=e.target.close
     $('#p-add').textContent='Enregistrer la modification';$('#p-cancel').classList.remove('hide');$('#perf').scrollIntoView({behavior:'smooth'})}};
 function drawP(){
   const names=[...new Set(P.map(lab))],f=$('#p-filter'),cur=f.value;
-  f.innerHTML='<option value="">Tous les exercices</option>'+names.map(n=>'<option value="'+esc(n)+'">'+esc(n)+'</option>').join('');
+  setH(f,'<option value="">Tous les exercices</option>'+names.map(n=>'<option value="'+esc(n)+'">'+esc(n)+'</option>').join(''));
   f.value=names.includes(cur)?cur:'';
   const asc=[...P].sort((a,b)=>a.date.localeCompare(b.date)||a.id-b.id),best={};
   asc.forEach(e=>{const t=tot(e),k=lab(e);if(!best[k]||t>best[k].t)best[k]={t,id:e.id}});
   const list=asc.filter(e=>!f.value||lab(e)===f.value).reverse();
-  $('#p-list').innerHTML=list.map(e=>perfCard(e,best[lab(e)].id===e.id,true)).join('');
+  setH($('#p-list'),list.map(e=>perfCard(e,best[lab(e)].id===e.id,true)).join(''));
   $('#p-empty').classList.toggle('hide',list.length>0);
   const pr=$('#p-prog');
   if(f.value&&list.length>1){const a=list[list.length-1],z=list[0],dt=tot(z)-tot(a);pr.textContent='Progression : '+tot(a)+' → '+tot(z)+' reps ('+(dt>0?'+':'')+dt+')';pr.classList.remove('hide')}
@@ -1538,14 +1558,14 @@ $('#p-goals').addEventListener('change',e=>{const i=e.target.closest('input[data
 function gActs(id){return '<div class="gacts"><button class="rd x" data-ge="'+id+'" aria-label="Modifier">'+ic('pencil')+'</button><button class="rd x del" data-gd="'+id+'" aria-label="Supprimer">'+ic('x')+'</button></div>'}
 function drawGoals(){
   const act=G.filter(g=>!g.done),don=G.filter(g=>g.done).sort((a,b)=>(b.doneDate||'').localeCompare(a.doneDate||'')||b.id-a.id);
-  $('#g-stats').innerHTML='<span>'+ic('target')+act.length+' en cours</span><span>'+ic('trophy')+don.length+' accompli'+(don.length>1?'s':'')+'</span>';
-  $('#g-list').innerHTML=act.map(g=>{const u=gunit(g),p=Math.floor(gpg(g)*100);
-    return '<div class="gcard'+(p>=85?' near':'')+'" data-id="'+g.id+'"><div class="gh">'+gIconHTML(g)+'<div class="gt"><b>'+esc(gname(g))+'</b><small>Départ '+fv(g.start,u)+' → objectif '+fv(g.target,u)+'</small></div>'+gActs(g.id)+'</div><div class="pbar"><i style="width:0" data-w="'+p+'"></i><span class="pct">'+p+' %</span></div><div class="gl"><div class="step"><button class="rd" data-gm="'+g.id+'" aria-label="Moins">−</button><input type="text" class="num" data-gi="'+g.id+'" inputmode="'+(u==='kg'?'decimal':'numeric')+'" autocomplete="off" value="'+fmtIn(g.cur)+'" aria-label="Niveau actuel"><button class="rd" data-gp="'+g.id+'" aria-label="Plus">+</button></div><div class="gr"><small>Niveau actuel ('+(u==='s'?'secondes':u)+')</small><span class="grem">Encore '+fv(g.target-g.cur,u)+'</span></div></div></div>'}).join('');
+  setH($('#g-stats'),'<span>'+ic('target')+act.length+' en cours</span><span>'+ic('trophy')+don.length+' accompli'+(don.length>1?'s':'')+'</span>');
+  const glNew=setH($('#g-list'),act.map(g=>{const u=gunit(g),p=Math.floor(gpg(g)*100);
+    return '<div class="gcard'+(p>=85?' near':'')+'" data-id="'+g.id+'"><div class="gh">'+gIconHTML(g)+'<div class="gt"><b>'+esc(gname(g))+'</b><small>Départ '+fv(g.start,u)+' → objectif '+fv(g.target,u)+'</small></div>'+gActs(g.id)+'</div><div class="pbar"><i style="width:0" data-w="'+p+'"></i><span class="pct">'+p+' %</span></div><div class="gl"><div class="step"><button class="rd" data-gm="'+g.id+'" aria-label="Moins">−</button><input type="text" class="num" data-gi="'+g.id+'" inputmode="'+(u==='kg'?'decimal':'numeric')+'" autocomplete="off" value="'+fmtIn(g.cur)+'" aria-label="Niveau actuel"><button class="rd" data-gp="'+g.id+'" aria-label="Plus">+</button></div><div class="gr"><small>Niveau actuel ('+(u==='s'?'secondes':u)+')</small><span class="grem">Encore '+fv(g.target-g.cur,u)+'</span></div></div></div>'}).join(''));
   $('#g-empty').classList.toggle('hide',act.length>0||don.length>0);
   $('#g-doneN').textContent='('+don.length+')';
-  $('#g-donelist').innerHTML=don.length?don.map(g=>{const u=gunit(g),days=g.created&&g.doneDate?Math.max(0,Math.round((new Date(g.doneDate)-new Date(g.created))/864e5)):0;
-    return '<div class="gcard dn" data-id="'+g.id+'"><div class="gh"><span class="gi">'+ic('trophy')+'</span><div class="gt"><b>'+esc(gname(g))+'</b><small>'+fv(g.start,u)+' → '+fv(g.target,u)+' · atteint le '+(g.doneDate?fd(g.doneDate):'')+(days?' · en '+days+' j':'')+'</small></div>'+gActs(g.id)+'</div></div>'}).join(''):'<p class="sub" style="margin:0">Aucun objectif accompli pour l\'instant.</p>';
-  requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('#g-list .pbar i').forEach(i=>i.style.width=i.dataset.w+'%')))}
+  setH($('#g-donelist'),don.length?don.map(g=>{const u=gunit(g),days=g.created&&g.doneDate?Math.max(0,Math.round((new Date(g.doneDate)-new Date(g.created))/864e5)):0;
+    return '<div class="gcard dn" data-id="'+g.id+'"><div class="gh"><span class="gi">'+ic('trophy')+'</span><div class="gt"><b>'+esc(gname(g))+'</b><small>'+fv(g.start,u)+' → '+fv(g.target,u)+' · atteint le '+(g.doneDate?fd(g.doneDate):'')+(days?' · en '+days+' j':'')+'</small></div>'+gActs(g.id)+'</div></div>'}).join(''):'<p class="sub" style="margin:0">Aucun objectif accompli pour l\'instant.</p>');
+  if(glNew)requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('#g-list .pbar i').forEach(i=>i.style.width=i.dataset.w+'%')))}
 function goalsFrom(e){let ch=false;
   G.forEach(g=>{if(g.done)return;const m=gm(g);if(!m.ex||m.ex!==e.ex)return;if(g.v&&e.v!==g.v)return;const cand=g.lg?(e.w||0):(g.w>0?((e.w||0)>=g.w?e.r:0):(e.w?0:e.r));
     if(cand>g.cur){g.cur=cand;ghist(g);ch=true;toast('Objectif mis à jour : '+gname(g)+' : '+fv(cand,gunit(g)));if(g.cur>=g.target)gDone(g)}});
