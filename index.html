@@ -702,13 +702,50 @@ body{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:auto;backgro
 @keyframes rdTap{0%{transform:scale(.8)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
 @keyframes rdRing{from{opacity:.7;transform:scale(1)}to{opacity:0;transform:scale(1.75)}}
 button.rd:active:not(:disabled){transform:scale(.85)}
+
+/* ===== v6 : boutons − rouges et + verts ===== */
+.rd[aria-label$="moins" i]:not(.on):not(.vb):not(.conf){background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.5);color:#E5484D}
+.rd[aria-label$="plus" i]:not(.on):not(.vb):not(.conf){background:rgba(18,185,129,.13);border-color:rgba(18,185,129,.5);color:#0E9F6E}
+:root[data-theme="light"] .rd[aria-label$="moins" i]:not(.on):not(.vb):not(.conf){background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.5);color:#D9363E}
+:root[data-theme="light"] .rd[aria-label$="plus" i]:not(.on):not(.vb):not(.conf){background:rgba(18,185,129,.13);border-color:rgba(18,185,129,.5);color:#0B8A5F}
+.rep .rd[aria-label$="moins" i]{background:rgba(239,68,68,.38)!important;color:#fff!important;box-shadow:inset 0 0 0 1.5px rgba(255,160,160,.65)!important}
+.rep .rd[aria-label$="plus" i]{background:rgba(18,185,129,.42)!important;color:#fff!important;box-shadow:inset 0 0 0 1.5px rgba(130,240,195,.65)!important}
+.rd[aria-label$="moins" i]::after{background:rgba(239,68,68,.5)}
+.rd[aria-label$="plus" i]::after{background:rgba(18,185,129,.5)}
+
+/* ===== v7 : onglet Actualités ===== */
+#tabs{width:min(calc(100% - 28px),372px)}
+#tabs .pill{width:calc((100% - 36px)/5)}
+.homehead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.homehead .rd{margin-top:8px}
+.feed{display:flex;flex-direction:column;gap:14px;margin:12px 0}
+.post{background:var(--card);border:1px solid var(--hair);border-radius:24px;padding:14px;box-shadow:0 16px 32px -24px rgba(0,0,0,.6)}
+:root[data-theme="light"] .post{box-shadow:0 12px 28px -20px rgba(20,32,70,.3)}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.ph .avatar{width:40px;height:40px;font-size:15px}
+.pn{flex:1;min-width:0}
+.pn b{display:block;font:800 16px/1.2 Sora,Manrope,sans-serif;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pn small{color:var(--mute);font-size:12.5px;font-weight:500}
+.ptag{font:700 10.5px Sora,Manrope,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;white-space:nowrap}
+.ptag.tp{background:color-mix(in srgb,var(--work) 16%,transparent);color:var(--work)}
+.ptag.tg{background:color-mix(in srgb,var(--amr) 16%,transparent);color:var(--amr)}
+.post .pf,.post .gcard{background:color-mix(in srgb,var(--ink) 4%,transparent);box-shadow:none;animation:none;margin:0}
+.post .gcard.dn{opacity:1}
+.post .pf-s{grid-template-columns:1.4fr .9fr 1fr}
+.post .pf-s span{font-size:10px;letter-spacing:.07em}
 </style>
 </head>
 <body>
 <div id="splash" aria-hidden="true"><div class="sp-in"><div class="sp-logo"><img id="sp-img" alt=""></div><div class="sp-name">Emom Pro</div></div></div>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-timer" viewBox="0 0 24 24"><path d="M4 13.5a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M12 9.5v4.5l2.8 1.8"/><path d="M9.5 2.5h5"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M8 8a4 4 0 1 0 8 0a4 4 0 1 0 -8 0M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol><symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><path d="M13 7a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M7 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol><symbol id="i-pyramid" viewBox="0 0 24 24"><path d="M12 4 3.5 20h17z"/><path d="M7.5 14h9"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></symbol><symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6 2h12M6 22h12"/><path d="M7 2v3.5c0 2 2.2 3.6 5 6.5-2.8 2.9-5 4.5-5 6.5V22"/><path d="M17 2v3.5c0 2-2.2 3.6-5 6.5 2.8 2.9 5 4.5 5 6.5V22"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></symbol><symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></symbol><symbol id="i-weight" viewBox="0 0 24 24"><path d="M7 21h10l2-10H5z"/><path d="M9 11a3 3 0 0 1 6 0"/></symbol><symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/><path d="M19 6.5a8 8 0 0 1 0 11"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></symbol><symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></symbol><symbol id="i-award" viewBox="0 0 24 24"><path d="M6 9a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"/><path d="M8.5 14.5 7 22l5-3 5 3-1.5-7.5"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M8 3h8v3H8z"/><path d="M6 5H5a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-1"/><path d="M8 12h8M8 16h5"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="M7 8l5-5 5 5"/><path d="M4 20h16"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><path d="M8 21v-6h8v6"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><path d="M9 9h11v11H9z"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol><symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.4l-5.5 3 1-6.3L3 9.7l6.2-.9z"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></symbol><symbol id="i-venus" viewBox="0 0 24 24"><path d="M7 9a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M12 14v8M9 18h6"/></symbol><symbol id="i-mars" viewBox="0 0 24 24"><path d="M5 14a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M14 10l6-6M15 4h5v5"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="M4 11a7 7 0 1 0 14 0a7 7 0 1 0 -14 0M20 20l-4-4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><path d="M8.5 13a3.5 3.5 0 1 0 7.0 0a3.5 3.5 0 1 0 -7.0 0"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M5.5 8a3.5 3.5 0 1 0 7.0 0a3.5 3.5 0 1 0 -7.0 0M2.5 20c0-3.6 2.9-5.5 6.5-5.5s6.5 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7"/><path d="M17.5 14.7c2.5.5 4 2.2 4 5.3"/></symbol><symbol id="i-userplus" viewBox="0 0 24 24"><path d="M6 8a4 4 0 1 0 8 0a4 4 0 1 0 -8 0M2.5 21c0-3.8 3.4-6 7.5-6"/><path d="M19 8v6M16 11h6"/></symbol><symbol id="i-arrowleft" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol></defs></svg>
-<nav id="tabs" aria-label="Navigation"><i class="pill" aria-hidden="true"></i><button class="on" data-t="setup" aria-label="Chrono"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-timer"/></svg></span></button><button data-t="perf" aria-label="Performances"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-chart"/></svg></span></button><button data-t="profile" aria-label="Profil"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-user"/></svg></span></button><button data-t="settings" aria-label="Paramètres"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-sliders"/></svg></span></button></nav>
-<div id="scroller"><main id="setup">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-timer" viewBox="0 0 24 24"><path d="M4 13.5a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M12 9.5v4.5l2.8 1.8"/><path d="M9.5 2.5h5"/></symbol><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M8 8a4 4 0 1 0 8 0a4 4 0 1 0 -8 0M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol><symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><path d="M13 7a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M7 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol><symbol id="i-pyramid" viewBox="0 0 24 24"><path d="M12 4 3.5 20h17z"/><path d="M7.5 14h9"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></symbol><symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6 2h12M6 22h12"/><path d="M7 2v3.5c0 2 2.2 3.6 5 6.5-2.8 2.9-5 4.5-5 6.5V22"/><path d="M17 2v3.5c0 2-2.2 3.6-5 6.5 2.8 2.9 5 4.5 5 6.5V22"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></symbol><symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></symbol><symbol id="i-weight" viewBox="0 0 24 24"><path d="M7 21h10l2-10H5z"/><path d="M9 11a3 3 0 0 1 6 0"/></symbol><symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/><path d="M19 6.5a8 8 0 0 1 0 11"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></symbol><symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></symbol><symbol id="i-award" viewBox="0 0 24 24"><path d="M6 9a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"/><path d="M8.5 14.5 7 22l5-3 5 3-1.5-7.5"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M8 3h8v3H8z"/><path d="M6 5H5a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-1"/><path d="M8 12h8M8 16h5"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="M7 8l5-5 5 5"/><path d="M4 20h16"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><path d="M8 21v-6h8v6"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><path d="M9 9h11v11H9z"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol><symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.4l-5.5 3 1-6.3L3 9.7l6.2-.9z"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></symbol><symbol id="i-venus" viewBox="0 0 24 24"><path d="M7 9a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M12 14v8M9 18h6"/></symbol><symbol id="i-mars" viewBox="0 0 24 24"><path d="M5 14a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M14 10l6-6M15 4h5v5"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="M4 11a7 7 0 1 0 14 0a7 7 0 1 0 -14 0M20 20l-4-4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><path d="M8.5 13a3.5 3.5 0 1 0 7.0 0a3.5 3.5 0 1 0 -7.0 0"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M5.5 8a3.5 3.5 0 1 0 7.0 0a3.5 3.5 0 1 0 -7.0 0M2.5 20c0-3.6 2.9-5.5 6.5-5.5s6.5 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7"/><path d="M17.5 14.7c2.5.5 4 2.2 4 5.3"/></symbol><symbol id="i-userplus" viewBox="0 0 24 24"><path d="M6 8a4 4 0 1 0 8 0a4 4 0 1 0 -8 0M2.5 21c0-3.8 3.4-6 7.5-6"/><path d="M19 8v6M16 11h6"/></symbol><symbol id="i-arrowleft" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol></defs></svg>
+<nav id="tabs" aria-label="Navigation"><i class="pill" aria-hidden="true"></i><button data-t="home" aria-label="Actualités"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-home"/></svg></span></button><button class="on" data-t="setup" aria-label="Chrono"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-timer"/></svg></span></button><button data-t="perf" aria-label="Performances"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-chart"/></svg></span></button><button data-t="profile" aria-label="Profil"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-user"/></svg></span></button><button data-t="settings" aria-label="Paramètres"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-sliders"/></svg></span></button></nav>
+<div id="scroller"><main id="home" class="hide">
+  <div class="homehead"><div><h1>Actualités</h1><p class="sub">Les dernières performances et les derniers objectifs, les tiens et ceux de tes amis.</p></div><button id="feed-refresh" type="button" class="rd x" aria-label="Actualiser le fil" title="Actualiser"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-refresh"/></svg></button></div>
+  <p class="sub hide" id="feed-note"></p>
+  <div class="feed" id="feed"></div>
+  <p class="sub hide" id="feed-empty">Rien pour l'instant : ajoute une performance ou un objectif pour lancer le fil.</p>
+  <button type="button" class="wide hide" id="feed-more">Afficher plus</button>
+</main><main id="setup">
   <h1>Emom Pro</h1>
   <p class="sub">Règle ta séance, puis lance le chrono.</p>
   <div class="seg" id="modes"><button data-m="emom"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-bolt"/></svg>Emom</button><button data-m="pyramid"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-pyramid"/></svg>Pyramide</button><button data-m="amrap"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-repeat"/></svg>AMRAP</button></div>
@@ -802,6 +839,7 @@ button.rd:active:not(:disabled){transform:scale(.85)}
   <div class="card sc"><div class="row"><div>Effets sonores</div><input type="range" id="vol" min="0" max="100" step="5" aria-label="Volume des sons"></div>
     <div class="row"><div>Voix</div><input type="range" id="vvol" min="0" max="100" step="5" aria-label="Volume de la voix"></div>
     <div class="row"><div>Genre de la voix<small id="g-lab"></small></div><div class="duo" id="sw-gender" role="radiogroup" aria-label="Genre de la voix"><i class="duo-thumb" aria-hidden="true"></i><button type="button" role="radio" data-v="f"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-venus"/></svg><span>Femme</span></button><button type="button" role="radio" data-v="m"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-mars"/></svg><span>Homme</span></button></div></div>
+    <p class="sub" style="font-size:13px;margin:2px 4px 10px">Pour des voix plus naturelles sur iPhone : Réglages → Accessibilité → Contenu énoncé → Voix → Français, puis télécharge une voix « Améliorée » ou « Premium ». L'app la choisira automatiquement.</p>
     <div class="row"><div>Continuer ma musique<small>Les sons se mélangent à ta musique ; le mode silencieux les coupe</small></div><button class="sw" id="sw-mix" role="switch" aria-label="Continuer ma musique"></button></div></div>
   <h3 class="sec">Séance</h3>
   <div class="card sc"><div class="row"><div>Compter les répétitions<small>Total pendant et à la fin</small></div><button class="sw" id="sw-count" role="switch" aria-label="Compter les répétitions"></button></div></div>
@@ -946,6 +984,8 @@ const fmtIn=v=>String(v).replace('.',',');
 ['gesturestart','gesturechange','gestureend'].forEach(ev=>document.addEventListener(ev,e=>e.preventDefault()));
 /* champs décimaux : chiffres, point ou virgule uniquement */
 document.addEventListener('input',e=>{const t=e.target;if(t&&t.matches&&t.matches('#g-cur,#g-tgt,#g-w,input[data-gi],#p-w,#s-w,#a-w,#y-w')){const v=t.value.replace(/[^0-9.,]/g,'');if(v!==t.value)t.value=v}});
+let lastTic=0;
+document.addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.closest('button,.sw,.chk');if(!b||b.disabled||Date.now()-lastTic<50)return;lastTic=Date.now();Snd.play(tapKind(b))},{capture:true,passive:true});
 document.addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.closest('.rd');if(!b||b.disabled)return;b.classList.remove('tap');void b.offsetWidth;b.classList.add('tap');setTimeout(()=>b.classList.remove('tap'),520)},{capture:true,passive:true});
 /* ré-écrit un bloc seulement s'il a changé (évite de relancer les animations et de faire clignoter) */
 const setH=(el,h)=>{if(el.__h===h)return false;el.__h=h;el.innerHTML=h;return true};
@@ -1023,13 +1063,34 @@ let R=null,timer=null,lastSec=null,lock=null;
 function silentWav(){const n=4000,b=new Uint8Array(44+n),dv=new DataView(b.buffer),w=(o,t)=>[...t].forEach((c,i)=>b[o+i]=c.charCodeAt(0));w(0,'RIFF');dv.setUint32(4,36+n,true);w(8,'WAVEfmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,1,true);dv.setUint32(24,8000,true);dv.setUint32(28,8000,true);dv.setUint16(32,1,true);dv.setUint16(34,8,true);w(36,'data');dv.setUint32(40,n,true);b.fill(128,44);let t='';b.forEach(x=>t+=String.fromCharCode(x));return 'data:audio/wav;base64,'+btoa(t)}
 let sil=null;
 /* ===== moteur audio unique : effets sonores + coordination avec la voix ===== */
+/* [fréquence, durée, début, timbre] — timbres : s = sinus doux, b = cloche, p = pop */
+const TIMB={s:[[1,1],[2.005,.16]],b:[[1,1],[2.01,.4],[3.99,.14]],p:[[1,1],[.5,.3]]};
 const NOTES={
-  start:[[392,.24,0],[523,.24,.12],[659,.24,.24],[784,.8,.38]],
-  series:[[784,.2,0],[1047,.5,.09]],
-  thirty:[[1319,.1,0],[1319,.1,.16]],
-  tick:[[988,.11,0]],tick1:[[1319,.11,0]],
-  rest:[[392,.4,0]],test:[[784,.26,0]],
-  end:[[523,.3,0],[659,.3,.14],[784,.3,.28],[1047,1,.42]]};
+  start:[[784,.5,0,'b'],[1047,.55,.12,'b'],[1568,1,.26,'b']],
+  series:[[880,.35,0,'b'],[1319,.7,.1,'b']],
+  thirty:[[1175,.18,0,'b'],[1175,.18,.22,'b']],
+  tick:[[880,.08,0,'p']],tick1:[[1319,.12,0,'p']],
+  rest:[[587,.5,0,'b']],test:[[880,.4,0,'b']],
+  end:[[523,1.1,0,'b'],[659,1.1,.16,'b'],[784,1.1,.32,'b'],[1047,1.8,.5,'b']],
+  click:[[2300,.05,0,'s']],
+  tapPlus:[[1700,.05,0,'s'],[2300,.06,.05,'s']],
+  tapMinus:[[1500,.05,0,'s'],[1050,.06,.05,'s']],
+  tapTab:[[1180,.07,0,'p']],
+  tapAct:[[1318,.14,0,'b'],[1760,.16,.07,'b']],
+  tapDel:[[520,.1,0,'p']],
+  tapTog:[[2000,.04,0,'s'],[1500,.045,.035,'s']],
+  tapRd:[[1900,.06,0,'s']]};
+const gainOf=n=>/^(tap|click)/.test(n)?.28:1,NL=d=>d<.06?.06:Math.max(.14,d);
+/* quel bruitage pour quel bouton */
+function tapKind(b){const a=((b.getAttribute('aria-label')||'')+' '+(b.id||'')).toLowerCase(),c=b.classList;
+  if(b.closest('#tabs'))return 'tapTab';
+  if(c.contains('rd')&&/plus\b/.test(a))return 'tapPlus';
+  if(c.contains('rd')&&/moins\b/.test(a))return 'tapMinus';
+  if(c.contains('del')||/supprimer|retirer|refuser|stop|terminer|quitter|déconnex|logout/.test(a))return 'tapDel';
+  if(c.contains('big')||c.contains('pillbtn')||/^(go|again)$/.test(b.id)||/-add$|^g-add$|^p-add$/.test(b.id))return 'tapAct';
+  if(c.contains('sw')||c.contains('chk')||b.closest('.seg,.duo,#modes'))return 'tapTog';
+  if(c.contains('rd'))return 'tapRd';
+  return 'click'}
 const Snd={
   ctx:null,busyUntil:0,lastKick:0,fb:{},fbVol:-1,primed:false,speaking:false,sayT:0,urls:[],
   ensure(){
@@ -1048,27 +1109,28 @@ const Snd={
   kick(){
     try{if(!this.ctx||this.ctx.state==='closed'){this.unlock();return}
       if(this.ctx.state!=='running'&&Date.now()-this.lastKick>700){this.lastKick=Date.now();const p=this.ctx.resume();p&&p.catch&&p.catch(()=>{})}}catch(e){}},
-  dur(seq){return Math.max(...seq.map(n=>n[2]+Math.max(.14,n[1])))},
+  dur(seq){return Math.max(...seq.map(n=>n[2]+NL(n[1])))},
   play(name){
     if(!S.vol)return;const seq=NOTES[name];if(!seq)return;
-    this.busyUntil=Date.now()+this.dur(seq)*1000;
+    if(name!=='click')this.busyUntil=Date.now()+this.dur(seq)*1000;
     const c=this.ctx;
-    if(c&&c.state==='running'){try{this.web(c,seq);return}catch(e){}}
+    if(c&&c.state==='running'){try{this.web(c,seq,gainOf(name));return}catch(e){}}
     this.kick();this.fallback(name)},
-  web(c,seq){
-    const v=S.vol/100;
-    seq.forEach(([f,d,t])=>{
-      const t0=c.currentTime+t,o1=c.createOscillator(),o2=c.createOscillator(),g=c.createGain(),g2=c.createGain(),L=Math.max(.14,d);
-      o1.type='sine';o2.type='sine';o1.frequency.value=f;o2.frequency.value=f*2.005;g2.gain.value=.16;
-      o1.connect(g);o2.connect(g2);g2.connect(g);g.connect(c.destination);
-      const pk=Math.max(.0004,.6*v);g.gain.setValueAtTime(.0001,t0);g.gain.linearRampToValueAtTime(pk,t0+.012);g.gain.exponentialRampToValueAtTime(.0001,t0+L);
-      o1.start(t0);o2.start(t0);o1.stop(t0+L+.05);o2.stop(t0+L+.05)})},
+  web(c,seq,gn){
+    const v=S.vol/100*(gn||1);
+    seq.forEach(([f,d,t,tm])=>{
+      const P=TIMB[tm||'s'],sum=P.reduce((x,p)=>x+p[1],0),t0=c.currentTime+t,L=NL(d),g=c.createGain(),pk=Math.max(.0004,.65*v),oscs=[];
+      P.forEach(([r,amp])=>{const o=c.createOscillator(),ga=c.createGain();o.type='sine';o.frequency.value=f*r;ga.gain.value=amp/sum;o.connect(ga);ga.connect(g);oscs.push(o)});
+      g.connect(c.destination);
+      g.gain.setValueAtTime(.0001,t0);g.gain.linearRampToValueAtTime(pk,t0+.008);g.gain.exponentialRampToValueAtTime(.0001,t0+L);
+      oscs.forEach(o=>{o.start(t0);o.stop(t0+L+.05)})})},
   /* secours : les mêmes sons pré-rendus en WAV (volume intégré), joués avec une balise audio */
   wav(seq,vol){
     const sr=22050,n=Math.ceil((this.dur(seq)+.05)*sr),buf=new Float32Array(n);
-    seq.forEach(([f,d,t])=>{const L=Math.max(.14,d),pk=Math.max(.0004,.6*vol),i0=Math.floor(t*sr),len=Math.floor((L+.05)*sr);
-      for(let i=0;i<len&&i0+i<n;i++){const x=i/sr,env=x<.012?.0001+(pk-.0001)*x/.012:pk*Math.pow(.0001/pk,Math.min(1,(x-.012)/(L-.012)));
-        buf[i0+i]+=(Math.sin(2*Math.PI*f*x)+.16*Math.sin(2*Math.PI*f*2.005*x))*env}});
+    seq.forEach(([f,d,t,tm])=>{const P=TIMB[tm||'s'],sum=P.reduce((x,p)=>x+p[1],0),L=NL(d),pk=Math.max(.0004,.65*vol),i0=Math.floor(t*sr),len=Math.floor((L+.05)*sr);
+      for(let i=0;i<len&&i0+i<n;i++){const x=i/sr,env=x<.008?.0001+(pk-.0001)*x/.008:pk*Math.pow(.0001/pk,Math.min(1,(x-.008)/(L-.008)));
+        let y=0;for(let k=0;k<P.length;k++)y+=Math.sin(2*Math.PI*f*P[k][0]*x)*P[k][1];
+        buf[i0+i]+=y/sum*env}});
     const b=new Uint8Array(44+n*2),dv=new DataView(b.buffer),w=(o,s)=>[...s].forEach((c,i)=>b[o+i]=c.charCodeAt(0));
     w(0,'RIFF');dv.setUint32(4,36+n*2,true);w(8,'WAVEfmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,1,true);dv.setUint32(24,sr,true);dv.setUint32(28,sr*2,true);dv.setUint16(32,2,true);dv.setUint16(34,16,true);w(36,'data');dv.setUint32(40,n*2,true);
     for(let i=0;i<n;i++)dv.setInt16(44+i*2,Math.max(-1,Math.min(1,buf[i]))*32767,true);
@@ -1076,7 +1138,7 @@ const Snd={
   build(){
     if(!S.vol||this.fbVol===S.vol&&this.primed)return;
     try{this.urls.forEach(u=>URL.revokeObjectURL(u))}catch(e){}this.urls=[];this.fb={};this.fbVol=S.vol;
-    Object.keys(NOTES).forEach(k=>{const u=this.wav(NOTES[k],S.vol/100);this.urls.push(u);
+    Object.keys(NOTES).forEach(k=>{const u=this.wav(NOTES[k],S.vol/100*gainOf(k));this.urls.push(u);
       this.fb[k]={i:0,a:[0,1].map(()=>{const a=new Audio(u);a.preload='auto';return a})}});
     /* débloque les balises audio pendant le geste de l'utilisateur */
     Object.values(this.fb).forEach(f=>f.a.forEach(a=>{try{a.muted=true;const p=a.play();if(p&&p.then)p.then(()=>{a.pause();a.currentTime=0;a.muted=false}).catch(()=>{a.muted=false});else{a.pause();a.muted=false}}catch(e){}}));
@@ -1094,27 +1156,37 @@ const Snd={
 };
 const unlockAudio=()=>Snd.unlock(),audioKick=()=>Snd.kick();
 const sndStart=()=>Snd.play('start'),sndSeries=()=>Snd.play('series'),snd30=()=>Snd.play('thirty'),tickSnd=sec=>Snd.play(sec===1?'tick1':'tick'),sndEnd=()=>Snd.play('end');
-const say=t=>{if(!S.vvol||!window.speechSynthesis)return;if(STOP()&&!/^(Série \\d+|Repos)$/.test(t))return;try{const u=new SpeechSynthesisUtterance(t.replace(/ · /g,', '));u.lang='fr-FR';const pv=pickVoice();if(pv.v)u.voice=pv.v;u.pitch=pv.pitch;u.volume=S.vvol/100;Snd.say(u)}catch(e){}};
+const say=t=>{if(!S.vvol||!window.speechSynthesis)return;if(STOP()&&!/^(Série \\d+|Repos)$/.test(t))return;try{const u=new SpeechSynthesisUtterance(t.replace(/ · /g,', '));u.lang='fr-FR';const pv=pickVoice();if(pv.v)u.voice=pv.v;u.pitch=pv.pitch;u.rate=pv.rate||.92;u.volume=S.vvol/100;Snd.say(u)}catch(e){}};
 ['touchstart','pointerdown','touchend','click','keydown'].forEach(ev=>document.addEventListener(ev,()=>Snd.unlock(),{capture:true,passive:true}));
 ['visibilitychange','pageshow','focus'].forEach(ev=>(ev==='focus'?window:document).addEventListener(ev,()=>{if(document.visibilityState!=='hidden')Snd.kick()}));
 function setVol(v){S.vol=+v;save();draw()}
 function testVol(){Snd.unlock();Snd.build();Snd.play('test')}
 try{speechSynthesis.getVoices()}catch(e){}
 function pickVoice(){
-  const g=S.vgender==='m'?'m':'f',fr=((window.speechSynthesis&&speechSynthesis.getVoices())||[]).filter(v=>/^fr/i.test(v.lang));
-  const re=g==='m'?/thomas|daniel|nicolas|jacques|antoine|henri|claude|paul|guillaume|mathieu|r[ée]my|david|male|homme/i:/am[ée]lie|audrey|aur[ée]lie|marie|julie|c[ée]line|virginie|denise|[ée]lo[ie]se|[ée]lodie|female|femme/i;
-  const v=fr.find(x=>re.test(x.name));
-  return{v:v||fr.find(x=>/fr-FR/i.test(x.lang))||fr[0]||null,pitch:v?1:(g==='m'?.75:1.15)};
+  const g=S.vgender==='m'?'m':'f',all=(window.speechSynthesis&&speechSynthesis.getVoices())||[],fr=all.filter(v=>/^fr([-_]|$)/i.test(v.lang));
+  const mRe=/thomas|daniel|nicolas|jacques|antoine|henri|claude|paul|guillaume|mathieu|r[ée]my|david|bernard|fabrice|g[ée]rard|male|homme/i,fRe=/am[ée]lie|audrey|aur[ée]lie|marie|julie|c[ée]line|virginie|denise|[ée]lo[ie]se|[ée]lodie|brigitte|vivienne|female|femme/i;
+  const mine=g==='m'?mRe:fRe,other=g==='m'?fRe:mRe;
+  /* on privilégie les voix « améliorées / premium / naturelles », puis le bon genre, puis fr-FR */
+  const q=v=>{const n=v.name+' '+(v.voiceURI||'');let s=0;
+    if(/premium|enhanced|am[ée]lior|natural|naturel|neural|wavenet|studio/i.test(n))s+=60;
+    if(/compact/i.test(n))s-=20;
+    if(/fr[-_]FR/i.test(v.lang))s+=12;else if(/fr[-_]CA/i.test(v.lang))s+=4;
+    if(mine.test(v.name))s+=40;if(other.test(v.name))s-=80;
+    if(/google/i.test(v.name))s+=6;
+    return s};
+  const v=[...fr].sort((a,b)=>q(b)-q(a))[0]||null,ok=!!v&&mine.test(v.name);
+  const l=$('#g-lab');if(l)l.textContent=v?v.name:'voix par défaut';
+  return{v,pitch:ok?1:(g==='m'?.82:1.08),rate:.92};
 }
 function testVoice(){unlockAudio();say('Série 1')}
 ['#vol','#vol2'].forEach(id=>{$(id).oninput=e=>setVol(e.target.value);$(id).onchange=testVol});
 ['#vvol','#vvol2'].forEach(id=>{$(id).oninput=e=>{S.vvol=+e.target.value;save();draw()};$(id).onchange=testVoice});
 function buzz(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
-function _show(id){['setup','run','done','perf','detail','recap','profile','settings'].forEach(x=>{const el=$('#'+x);if(el)el.classList.toggle('hide',x!==id)});document.body.className='';$('#tabs').classList.toggle('hide',id==='run');document.querySelectorAll('#tabs [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===(['perf','profile','settings'].includes(id)?id:'setup')));navSel(id);if(id==='profile'&&window.__refreshProfile)window.__refreshProfile()}
-const PGI={setup:0,perf:1,profile:2,settings:3};let curPg='setup';
-function navSel(id){const t=['perf','profile','settings'].includes(id)?id:'setup';
+function _show(id){['home','setup','run','done','perf','detail','recap','profile','settings'].forEach(x=>{const el=$('#'+x);if(el)el.classList.toggle('hide',x!==id)});document.body.className='';$('#tabs').classList.toggle('hide',id==='run');document.querySelectorAll('#tabs [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===(['home','perf','profile','settings'].includes(id)?id:'setup')));navSel(id);if(id==='profile'&&window.__refreshProfile)window.__refreshProfile();if(id==='home'){renderHome();if(window.__refreshFeed)window.__refreshFeed()}}
+const PGI={home:0,setup:1,perf:2,profile:3,settings:4};let curPg='setup';
+function navSel(id){const t=['home','perf','profile','settings'].includes(id)?id:'setup';
   document.querySelectorAll('#tabs [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
-  $('#tabs').style.setProperty('--i',['setup','perf','profile','settings'].indexOf(t))}
+  $('#tabs').style.setProperty('--i',['home','setup','perf','profile','settings'].indexOf(t))}
 function show(id){
   const a=PGI[curPg]??0,b=PGI[id]??0,H=document.documentElement;curPg=id;
   if(a===b||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){_show(id);return}
@@ -1542,7 +1614,7 @@ $('#g-add').onclick=()=>{
     G.unshift({id:Date.now(),k,ty,name:au?name:'',ic:au?GIC:'',v,l,lg:false,...(l?{w}:{}),start:cur,cur,target:tgt,created:today(),done:false,doneDate:'',hist:[{d:today(),v:cur}]});$('#g-tgt').value='';$('#g-name').value='';$('#g-vo').value='';$('#g-lest').checked=false;$('#g-w').value='';gForm()}
   saveP();drawGoals()};
 function paintGoal(g){const c=document.querySelector('.gcard[data-id="'+g.id+'"]');if(!c)return;const p=Math.floor(gpg(g)*100),i=c.querySelector('input[data-gi]');
-  c.querySelector('.pbar i').style.width=p+'%';c.querySelector('.pct').textContent=p+' %';c.querySelector('.grem').textContent='Encore '+fv(g.target-g.cur,gunit(g));
+  c.querySelector('.pbar i').style.width=p+'%';c.querySelector('.pct').textContent=p+' %';c.querySelector('.grem').textContent='Objectif : '+fv(g.target,gunit(g));
   if(document.activeElement!==i)i.value=fmtIn(g.cur);c.classList.toggle('near',p>=85)}
 function gSet(id,v){const g=G.find(x=>x.id===id);if(!g)return;v=Math.max(0,Math.round(v*100)/100);if(v===g.cur)return;g.cur=v;ghist(g);
   if(g.cur>=g.target&&!g.done){gDone(g);saveP();drawGoals();return}
@@ -1560,7 +1632,7 @@ function drawGoals(){
   const act=G.filter(g=>!g.done),don=G.filter(g=>g.done).sort((a,b)=>(b.doneDate||'').localeCompare(a.doneDate||'')||b.id-a.id);
   setH($('#g-stats'),'<span>'+ic('target')+act.length+' en cours</span><span>'+ic('trophy')+don.length+' accompli'+(don.length>1?'s':'')+'</span>');
   const glNew=setH($('#g-list'),act.map(g=>{const u=gunit(g),p=Math.floor(gpg(g)*100);
-    return '<div class="gcard'+(p>=85?' near':'')+'" data-id="'+g.id+'"><div class="gh">'+gIconHTML(g)+'<div class="gt"><b>'+esc(gname(g))+'</b><small>Départ '+fv(g.start,u)+' → objectif '+fv(g.target,u)+'</small></div>'+gActs(g.id)+'</div><div class="pbar"><i style="width:0" data-w="'+p+'"></i><span class="pct">'+p+' %</span></div><div class="gl"><div class="step"><button class="rd" data-gm="'+g.id+'" aria-label="Moins">−</button><input type="text" class="num" data-gi="'+g.id+'" inputmode="'+(u==='kg'?'decimal':'numeric')+'" autocomplete="off" value="'+fmtIn(g.cur)+'" aria-label="Niveau actuel"><button class="rd" data-gp="'+g.id+'" aria-label="Plus">+</button></div><div class="gr"><small>Niveau actuel ('+(u==='s'?'secondes':u)+')</small><span class="grem">Encore '+fv(g.target-g.cur,u)+'</span></div></div></div>'}).join(''));
+    return '<div class="gcard'+(p>=85?' near':'')+'" data-id="'+g.id+'"><div class="gh">'+gIconHTML(g)+'<div class="gt"><b>'+esc(gname(g))+'</b><small>Départ '+fv(g.start,u)+' → objectif '+fv(g.target,u)+'</small></div>'+gActs(g.id)+'</div><div class="pbar"><i style="width:0" data-w="'+p+'"></i><span class="pct">'+p+' %</span></div><div class="gl"><div class="step"><button class="rd" data-gm="'+g.id+'" aria-label="Moins">−</button><input type="text" class="num" data-gi="'+g.id+'" inputmode="'+(u==='kg'?'decimal':'numeric')+'" autocomplete="off" value="'+fmtIn(g.cur)+'" aria-label="Niveau actuel"><button class="rd" data-gp="'+g.id+'" aria-label="Plus">+</button></div><div class="gr"><small>Niveau actuel ('+(u==='s'?'secondes':u)+')</small><span class="grem">Objectif : '+fv(g.target,u)+'</span></div></div></div>'}).join(''));
   $('#g-empty').classList.toggle('hide',act.length>0||don.length>0);
   $('#g-doneN').textContent='('+don.length+')';
   setH($('#g-donelist'),don.length?don.map(g=>{const u=gunit(g),days=g.created&&g.doneDate?Math.max(0,Math.round((new Date(g.doneDate)-new Date(g.created))/864e5)):0;
@@ -1625,7 +1697,35 @@ function friendPerfHTML(perf,filter){const L=friendPerfList(perf),asc=[...L].sor
   const rows=asc.filter(e=>!filter||lab(e)===filter).reverse();
   if(!rows.length)return '<p class="sub">Aucune performance partagée.</p>';
   return '<div class="plist">'+rows.map(e=>perfCard(e,best[lab(e)].e===e,false)).join('')+'</div>'}
-window.__emomBridge={ic,friendGoalsHTML,friendPerfHTML,friendPerfLabels,getData:()=>({perf:P,goals:G,presets:PR}),setData:d=>{P=Array.isArray(d.perf)?d.perf:[];G=Array.isArray(d.goals)?d.goals.map(normGoal):[];PR=Array.isArray(d.presets)?d.presets:[];saveP();drawP();drawGoals();drawEx();draw()}};window.__ready=1;draw();
+
+/* ===== fil d'actualité ===== */
+let HOME_N=30;
+const tsOf=(x,dk)=>{const id=+x.id;if(id>1e12&&id<4e12)return id;const d=Date.parse(String(x[dk]||'')+'T12:00:00');return isFinite(d)?d:0};
+function agoTxt(ts){if(!ts)return '';const d=Date.now()-ts;if(d<60000)return "à l'instant";const m=Math.floor(d/60000);if(m<60)return 'il y a '+m+' min';const h=Math.floor(m/60);if(h<24)return 'il y a '+h+' h';const j=Math.floor(h/24);if(j===1)return 'hier';if(j<7)return 'il y a '+j+' j';return 'le '+new Date(ts).toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:j>300?'numeric':undefined})}
+const FEED_PHOTO=/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/;
+function feedAv(name,photo){const n=String(name||'?'),ini=(n.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('')||'?').toUpperCase();
+  return photo&&FEED_PHOTO.test(photo)?'<span class="avatar photo" role="img" aria-label="Photo de '+esc(n)+'" style="background-image:url(\''+photo+'\')"></span>':'<span class="avatar">'+esc(ini)+'</span>'}
+function feedGoalHTML(g){const u=gunit(g),p=Math.floor(gpg(g)*100);
+  if(g.done)return '<div class="gcard dn"><div class="gh">'+gIconHTML(g)+'<div class="gt"><b>'+esc(gname(g))+'</b><small>Départ '+fv(g.start,u)+' → objectif '+fv(g.target,u)+' · atteint</small></div></div></div>';
+  return '<div class="gcard'+(p>=85?' near':'')+'"><div class="gh">'+gIconHTML(g)+'<div class="gt"><b>'+esc(gname(g))+'</b><small>Départ '+fv(g.start,u)+' → objectif '+fv(g.target,u)+'</small></div></div><div class="pbar"><i style="width:'+p+'%"></i><span class="pct">'+p+' %</span></div></div>'}
+function postHTML(it){const isP=it.t==='p';
+  return '<article class="post"><div class="ph">'+feedAv(it.n,it.ph)+'<div class="pn"><b>'+esc(it.n)+'</b><small>'+esc(agoTxt(it.ts))+'</small></div><span class="ptag '+(isP?'tp':'tg')+'">'+(isP?'Performance':(it.g.done?'Objectif atteint':'Objectif'))+'</span></div>'+(isP?perfCard(it.e,it.rec,false):feedGoalHTML(it.g))+'</article>'}
+function feedPerfItems(list,name,photo,me){const L=list.filter(okPf),asc=[...L].sort((a,b)=>String(a.date||'').localeCompare(String(b.date||''))||(a.id||0)-(b.id||0)),best={};
+  asc.forEach(e=>{const k=lab(e);if(!best[k]||tot(e)>best[k].t)best[k]={t:tot(e),e}});
+  return L.map(e=>({ts:tsOf(e,'date'),t:'p',e,rec:best[lab(e)].e===e,n:name,ph:photo,me}))}
+function renderHome(){const ctx=window.__feedCtx||{},me=ctx.me||{name:'Toi',photo:''};
+  let items=[...feedPerfItems(P,'Toi',me.photo,1),...G.filter(okGf).map(normGoal).map(g=>({ts:tsOf(g,'created'),t:'g',g,n:'Toi',ph:me.photo,me:1}))];
+  (ctx.friends||[]).forEach(f=>{const d=f.d;if(!d||d.private)return;
+    items=items.concat(feedPerfItems(Array.isArray(d.perf)?d.perf:[],f.name,f.photo,0));
+    (Array.isArray(d.goals)?d.goals:[]).filter(okGf).map(normGoal).forEach(g=>items.push({ts:tsOf(g,'created'),t:'g',g,n:f.name,ph:f.photo,me:0}))});
+  items.sort((a,b)=>b.ts-a.ts);
+  setH($('#feed'),items.slice(0,HOME_N).map(postHTML).join(''));
+  $('#feed-empty').classList.toggle('hide',items.length>0);$('#feed-more').classList.toggle('hide',items.length<=HOME_N);
+  const note=!ctx.logged?"Connecte-toi (onglet Profil) pour voir aussi les publications de tes amis.":((ctx.friends||[]).length?'':"Ajoute des amis (onglet Profil) pour voir leurs performances et leurs objectifs ici.");
+  $('#feed-note').textContent=note;$('#feed-note').classList.toggle('hide',!note)}
+$('#feed-more').onclick=()=>{HOME_N+=30;renderHome()};
+$('#feed-refresh').onclick=()=>{if(window.__refreshFeed)window.__refreshFeed(true);else renderHome()};
+window.__emomBridge={renderHome,ic,friendGoalsHTML,friendPerfHTML,friendPerfLabels,getData:()=>({perf:P,goals:G,presets:PR}),setData:d=>{P=Array.isArray(d.perf)?d.perf:[];G=Array.isArray(d.goals)?d.goals.map(normGoal):[];PR=Array.isArray(d.presets)?d.presets:[];saveP();drawP();drawGoals();drawEx();draw()}};window.__ready=1;draw();
 </script>
 
 <script type="module">
@@ -1776,6 +1876,24 @@ $("#pseudo-save").addEventListener("click",async()=>{if(!currentUser)return;
  catch(e){pseudoMsg("Impossible de modifier le pseudo. Vérifie ta connexion et réessaie.")}
  finally{b.disabled=false}});
 
+// ---- fil d'actualité : publications des amis
+let feedAt=0,feedBusy=false;
+const feedEmpty=()=>({me:{name:"Toi",photo:""},friends:[],logged:false});
+window.__feedCtx=feedEmpty();
+async function refreshFeed(force){
+ if(!currentUser){window.__feedCtx=feedEmpty();window.__emomBridge.renderHome();return}
+ if(feedBusy||(!force&&Date.now()-feedAt<45000))return;
+ feedBusy=true;const btn=$("#feed-refresh");btn.disabled=true;
+ try{await loadProfiles();
+  const ids=frList.filter(f=>f.status==="accepted").map(otherOf);
+  const friends=await Promise.all(ids.map(async uid=>{let d=null;try{const s=await getDoc(doc(db,"shared",uid));d=s.exists()?s.data():null}catch(e){}
+   const p=profCache.get(uid)||{};return{uid,name:p.displayName||"Utilisateur",photo:p.photo||"",d}}));
+  window.__feedCtx={me:{name:myProfile.displayName||uname(currentUser),photo:myProfile.photo||""},friends,logged:true};feedAt=Date.now()}
+ catch(e){}
+ finally{feedBusy=false;btn.disabled=false}
+ window.__emomBridge.renderHome()}
+window.__refreshFeed=refreshFeed;
+
 function stopFriends(){if(unsubFr){unsubFr();unsubFr=null}frList=[];profCache=new Map();searchRes=[];viewUid=null;
  ["#fr-list","#fr-in","#fr-out","#fr-results"].forEach(i=>$(i).innerHTML="");["#fr-in-wrap","#fr-out-wrap"].forEach(i=>$(i).classList.add("hide"));
  $("#fr-count").textContent="";document.querySelector('#tabs [data-t="profile"]')?.classList.remove("has-badge");document.querySelector('#psubp [data-pp="friends"]')?.classList.remove("has-dot")}
@@ -1786,7 +1904,7 @@ async function loadProfiles(){const me=currentUser?.uid;
 function startFriends(user){stopFriends();if(!user)return;
  if(myProfile.displayName)profCache.set(user.uid,myProfile);
  try{const q=query(collection(db,"friendships"),where("members","array-contains",user.uid));
-  unsubFr=onSnapshot(q,async snap=>{frList=snap.docs.map(d=>({id:d.id,...d.data()}));await loadProfiles();renderFriends()},
+  unsubFr=onSnapshot(q,async snap=>{frList=snap.docs.map(d=>({id:d.id,...d.data()}));await loadProfiles();renderFriends();feedAt=0;if(!$("#home").classList.contains("hide"))refreshFeed()},
    err=>{$("#fr-empty").classList.remove("hide");$("#fr-empty").textContent="Impossible de charger les amis. Vérifie les règles Firestore."})}
  catch(e){$("#fr-empty").textContent="Impossible de charger les amis."}}
 const otherOf=f=>f.members.find(x=>x!==currentUser.uid);
@@ -1873,7 +1991,7 @@ onAuthStateChanged(auth,async user=>{
  currentUser=user||null;
  openPseudo(false);
  viewUid=null;authPanel.classList.toggle("hide",!!user);applyView();
- if(!user){$("#sync-status").textContent="";setMode(false);stopFriends();myProfile={};ppPage="me";applyView();return}
+ if(!user){feedAt=0;window.__feedCtx=feedEmpty();$("#sync-status").textContent="";setMode(false);stopFriends();myProfile={};ppPage="me";applyView();return}
  $("#profile-name").textContent=user.displayName||user.email?.split("@")[0]||"Sportif";
  $("#profile-email").textContent=user.email||"Compte Google";
  $("#sync-status").textContent="Récupération des données…";
