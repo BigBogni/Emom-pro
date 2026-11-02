@@ -77,8 +77,8 @@ th{color:var(--mute);font-weight:600;font-size:13px}
 .prog{margin:0 0 12px;font-weight:600}
 .wide{width:100%;padding:12px;margin-top:8px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font:600 17px Manrope,sans-serif;color:var(--ink)}
 #dsave{color:var(--ink)}
-#p-chart:empty{display:none}
-#p-chart{margin-bottom:12px}
+#p-recs:empty{display:none}
+#p-recs{margin-bottom:12px}
 .exn{text-align:center;font:600 26px Sora,sans-serif;min-height:1.2em}
 .list span[data-i]{cursor:pointer}
 .seg{display:flex;gap:8px;margin:0 0 12px}
@@ -742,12 +742,15 @@ button.rd:active:not(:disabled){transform:scale(.85)}
 .pf-c .c-mode{background:color-mix(in srgb,var(--glow) 16%,transparent);color:var(--glow)}
 .grid3{align-items:end}
 .ptag.ok{background:color-mix(in srgb,#12B981 18%,transparent);color:#0E9F6E}
+#p-mode{flex-wrap:wrap}#p-mode button{flex:1 1 30%}
+#p-mode [data-pm="r"]{--c:#8B5CF6}#p-mode [data-pm="x"]{--c:#0EA5A4}
+.ptag.pg{background:color-mix(in srgb,var(--pyr) 16%,transparent);color:var(--pyr)}
 </style>
 </head>
 <body>
 <div id="splash" aria-hidden="true"><div class="sp-in"><div class="sp-logo"><img id="sp-img" alt=""></div><div class="sp-name">Emom Pro</div></div></div>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-timer" viewBox="0 0 24 24"><path d="M4 13.5a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M12 9.5v4.5l2.8 1.8"/><path d="M9.5 2.5h5"/></symbol><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M8 8a4 4 0 1 0 8 0a4 4 0 1 0 -8 0M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol><symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><path d="M13 7a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M7 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol><symbol id="i-pyramid" viewBox="0 0 24 24"><path d="M12 4 3.5 20h17z"/><path d="M7.5 14h9"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></symbol><symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6 2h12M6 22h12"/><path d="M7 2v3.5c0 2 2.2 3.6 5 6.5-2.8 2.9-5 4.5-5 6.5V22"/><path d="M17 2v3.5c0 2-2.2 3.6-5 6.5 2.8 2.9 5 4.5 5 6.5V22"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></symbol><symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></symbol><symbol id="i-weight" viewBox="0 0 24 24"><path d="M7 21h10l2-10H5z"/><path d="M9 11a3 3 0 0 1 6 0"/></symbol><symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/><path d="M19 6.5a8 8 0 0 1 0 11"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></symbol><symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></symbol><symbol id="i-award" viewBox="0 0 24 24"><path d="M6 9a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"/><path d="M8.5 14.5 7 22l5-3 5 3-1.5-7.5"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M8 3h8v3H8z"/><path d="M6 5H5a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-1"/><path d="M8 12h8M8 16h5"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="M7 8l5-5 5 5"/><path d="M4 20h16"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><path d="M8 21v-6h8v6"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><path d="M9 9h11v11H9z"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol><symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.4l-5.5 3 1-6.3L3 9.7l6.2-.9z"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></symbol><symbol id="i-venus" viewBox="0 0 24 24"><path d="M7 9a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M12 14v8M9 18h6"/></symbol><symbol id="i-mars" viewBox="0 0 24 24"><path d="M5 14a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M14 10l6-6M15 4h5v5"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="M4 11a7 7 0 1 0 14 0a7 7 0 1 0 -14 0M20 20l-4-4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><path d="M8.5 13a3.5 3.5 0 1 0 7.0 0a3.5 3.5 0 1 0 -7.0 0"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M5.5 8a3.5 3.5 0 1 0 7.0 0a3.5 3.5 0 1 0 -7.0 0M2.5 20c0-3.6 2.9-5.5 6.5-5.5s6.5 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7"/><path d="M17.5 14.7c2.5.5 4 2.2 4 5.3"/></symbol><symbol id="i-userplus" viewBox="0 0 24 24"><path d="M6 8a4 4 0 1 0 8 0a4 4 0 1 0 -8 0M2.5 21c0-3.8 3.4-6 7.5-6"/><path d="M19 8v6M16 11h6"/></symbol><symbol id="i-arrowleft" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol></defs></svg>
-<nav id="tabs" aria-label="Navigation"><i class="pill" aria-hidden="true"></i><button data-t="home" aria-label="Actualités"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-home"/></svg></span></button><button class="on" data-t="setup" aria-label="Chrono"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-timer"/></svg></span></button><button data-t="perf" aria-label="Performances"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-chart"/></svg></span></button><button data-t="profile" aria-label="Profil"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-user"/></svg></span></button><button data-t="settings" aria-label="Paramètres"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-sliders"/></svg></span></button></nav>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-timer" viewBox="0 0 24 24"><path d="M4 13.5a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M12 9.5v4.5l2.8 1.8"/><path d="M9.5 2.5h5"/></symbol><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></symbol><symbol id="i-infinity" viewBox="0 0 24 24"><path d="M12 12c-1.8-2.4-3.4-4-5.4-4a4 4 0 0 0 0 8c2 0 3.6-1.6 5.4-4s3.4-4 5.4-4a4 4 0 0 1 0 8c-2 0-3.6-1.6-5.4-4"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M8 8a4 4 0 1 0 8 0a4 4 0 1 0 -8 0M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol><symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><path d="M13 7a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M7 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol><symbol id="i-pyramid" viewBox="0 0 24 24"><path d="M12 4 3.5 20h17z"/><path d="M7.5 14h9"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></symbol><symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6 2h12M6 22h12"/><path d="M7 2v3.5c0 2 2.2 3.6 5 6.5-2.8 2.9-5 4.5-5 6.5V22"/><path d="M17 2v3.5c0 2-2.2 3.6-5 6.5 2.8 2.9 5 4.5 5 6.5V22"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></symbol><symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></symbol><symbol id="i-weight" viewBox="0 0 24 24"><path d="M7 21h10l2-10H5z"/><path d="M9 11a3 3 0 0 1 6 0"/></symbol><symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/><path d="M19 6.5a8 8 0 0 1 0 11"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></symbol><symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></symbol><symbol id="i-award" viewBox="0 0 24 24"><path d="M6 9a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"/><path d="M8.5 14.5 7 22l5-3 5 3-1.5-7.5"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M8 3h8v3H8z"/><path d="M6 5H5a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-1"/><path d="M8 12h8M8 16h5"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="M7 8l5-5 5 5"/><path d="M4 20h16"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><path d="M8 21v-6h8v6"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><path d="M9 9h11v11H9z"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol><symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.4l-5.5 3 1-6.3L3 9.7l6.2-.9z"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></symbol><symbol id="i-venus" viewBox="0 0 24 24"><path d="M7 9a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M12 14v8M9 18h6"/></symbol><symbol id="i-mars" viewBox="0 0 24 24"><path d="M5 14a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M14 10l6-6M15 4h5v5"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="M4 11a7 7 0 1 0 14 0a7 7 0 1 0 -14 0M20 20l-4-4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><path d="M8.5 13a3.5 3.5 0 1 0 7.0 0a3.5 3.5 0 1 0 -7.0 0"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M5.5 8a3.5 3.5 0 1 0 7.0 0a3.5 3.5 0 1 0 -7.0 0M2.5 20c0-3.6 2.9-5.5 6.5-5.5s6.5 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7"/><path d="M17.5 14.7c2.5.5 4 2.2 4 5.3"/></symbol><symbol id="i-userplus" viewBox="0 0 24 24"><path d="M6 8a4 4 0 1 0 8 0a4 4 0 1 0 -8 0M2.5 21c0-3.8 3.4-6 7.5-6"/><path d="M19 8v6M16 11h6"/></symbol><symbol id="i-arrowleft" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol></defs></svg>
+<nav id="tabs" aria-label="Navigation" style="--i:1"><i class="pill" aria-hidden="true"></i><button data-t="home" aria-label="Actualités"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-home"/></svg></span></button><button class="on" data-t="setup" aria-label="Chrono"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-timer"/></svg></span></button><button data-t="perf" aria-label="Performances"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-chart"/></svg></span></button><button data-t="profile" aria-label="Profil"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-user"/></svg></span></button><button data-t="settings" aria-label="Paramètres"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-sliders"/></svg></span></button></nav>
 <div id="scroller"><main id="home" class="hide">
   <div class="homehead"><div><h1>Actualités</h1><p class="sub">Les dernières performances et les derniers objectifs, les tiens et ceux de tes amis.</p></div><button id="feed-refresh" type="button" class="rd x" aria-label="Actualiser le fil" title="Actualiser"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-refresh"/></svg></button></div>
   <p class="sub hide" id="feed-note"></p>
@@ -861,7 +864,7 @@ button.rd:active:not(:disabled){transform:scale(.85)}
   <div class="seg" id="psub"><button class="on" data-ps="train"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-dumbbell"/></svg>Entraînements</button><button data-ps="goals"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-target"/></svg>Objectifs</button></div>
   <div id="p-train">
   <div class="card">
-    <div class="seg" id="p-mode"><button type="button" class="on" data-pm="emom"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-bolt"/></svg>Emom</button><button type="button" data-pm="pyramid"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-pyramid"/></svg>Pyramide</button><button type="button" data-pm="amrap"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-repeat"/></svg>AMRAP</button></div>
+    <div class="seg" id="p-mode"><button type="button" class="on" data-pm="emom"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-bolt"/></svg>Emom</button><button type="button" data-pm="pyramid"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-pyramid"/></svg>Pyramide</button><button type="button" data-pm="amrap"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-repeat"/></svg>AMRAP</button><button type="button" data-pm="r"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-weight"/></svg>1RM</button><button type="button" data-pm="x"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-infinity"/></svg>Max rep</button></div>
     <div id="p-pick"></div>
     <div class="grid3" id="pb-emom">
       <label>Séries<input type="number" id="p-s" inputmode="numeric" min="1" value="10"></label>
@@ -884,13 +887,15 @@ button.rd:active:not(:disabled){transform:scale(.85)}
         <label>Durée totale (min)<input type="number" id="pa-m" inputmode="decimal" min="1" value="10"></label>
       </div>
     </div>
+    <div id="pb-rm" class="hide"><label>Charge max (kg)<input type="text" id="po-w" inputmode="decimal" autocomplete="off" placeholder="Ex. 40"></label><p class="sub" style="margin:-4px 0 12px;font-size:13px">Charge ajoutée pour 1 répétition.</p></div>
+    <div id="pb-mx" class="hide"><label>Reps max<input type="number" id="pm-r" inputmode="numeric" min="1" value="10"></label></div>
     <label>Date<input type="date" id="p-date"></label>
     <button class="big" id="p-add">Ajouter la performance</button>
     <button class="wide hide" id="p-cancel">Annuler la modification</button>
   </div>
   <label>Afficher<select id="p-filter"></select></label>
   <p class="prog" id="p-prog"></p>
-  <div class="card" id="p-chart"></div>
+  <div class="card" id="p-recs"></div>
   <div class="plist" id="p-list"></div>
   <p class="sub" id="p-empty">Aucune performance pour l'instant. Ajoute la première ci-dessus.</p>
   <p class="sub" id="p-sync"></p>
@@ -1345,17 +1350,21 @@ const EXL={d:['Pompes','Dips','Tractions','Muscle up','HSPU','Traction 1 bras'],
 const isStat=e=>e.ty==='s'||STAT.includes(e.ex);
 const kg=w=>String(w).replace('.',',')+' kg';
 const wts=ex=>{const big=ex==='Tractions'||ex==='Dips',st=big?5:2.5,mx=big||ex==='Autre'?50:30,a=[];for(let w=st;w<=mx+1e-9;w+=st)a.push(w);return a};
-const lab=e=>e.ex+(e.v?' · '+e.v:'')+(e.w?' · Lestée '+kg(e.w):'');
+const lab=e=>e.ex+(e.v?' · '+e.v:'')+(e.m==='r'?' · 1RM':e.m==='x'?' · Max rep':'')+(e.m!=='r'&&e.w?' · Lestée '+kg(e.w):'');
 
 $('#p-filter').onchange=drawP;
 let EDIT=null,PM='emom';
 const pyrSeq=(a,b,c)=>{if(!(a>=1&&b>=1&&c>=1))return null;const mx=Math.max(c,a);if((mx-a)/b>100)return null;const r=[];for(let x=a;x<mx;x+=b)r.push(x);r.push(mx);return r.concat(r.slice(0,-1).reverse())};
 function pLabels(){const st=$('#p-ty').value==='s',L=(id,t)=>{const l=$(id).parentNode;if(l&&l.firstChild)l.firstChild.textContent=t};
-  L('#p-r',st?'Secondes par série':'Reps par série');L('#pp-a',st?'Départ (s)':'Départ');L('#pp-c',st?'Max (s)':'Max');L('#pa-r',st?'Secondes par tour':'Reps par tour')}
+  L('#p-r',st?'Secondes par série':'Reps par série');L('#pp-a',st?'Départ (s)':'Départ');L('#pp-c',st?'Max (s)':'Max');L('#pa-r',st?'Secondes par tour':'Reps par tour');L('#pm-r',st?'Temps max (s)':'Reps max')}
 function pPrev(){const q=pyrSeq(+$('#pp-a').value,+$('#pp-b').value,+$('#pp-c').value),u=$('#p-ty').value==='s'?'s':'reps';
   $('#pp-prev').textContent=q?'Séquence : '+(q.length>15?q.slice(0,7).join(' → ')+' … '+q.slice(-3).join(' → '):q.join(' → '))+' · '+q.length+' séries · total '+q.reduce((x,y)=>x+y,0)+' '+u:'Paramètres invalides.'}
 function setPM(m){PM=m;document.querySelectorAll('#p-mode [data-pm]').forEach(b=>b.classList.toggle('on',b.dataset.pm===m));
-  $('#pb-emom').classList.toggle('hide',m!=='emom');$('#pb-pyr').classList.toggle('hide',m!=='pyramid');$('#pb-amr').classList.toggle('hide',m!=='amrap');if(m==='pyramid')pPrev()}
+  $('#pb-emom').classList.toggle('hide',m!=='emom');$('#pb-pyr').classList.toggle('hide',m!=='pyramid');$('#pb-amr').classList.toggle('hide',m!=='amrap');
+  $('#pb-rm').classList.toggle('hide',m!=='r');$('#pb-mx').classList.toggle('hide',m!=='x');
+  const o=m==='r';if(o&&$('#p-ty').value==='s'){$('#p-ty').value='d';setT('p')}
+  $('#p-ty').parentNode.classList.toggle('hide',o);$('#p-w').parentNode.classList.toggle('hide',o);
+  if(m==='pyramid')pPrev()}
 document.querySelectorAll('#p-mode [data-pm]').forEach(b=>b.addEventListener('click',()=>setPM(b.dataset.pm)));
 document.addEventListener('input',e=>{if(e.target.matches&&e.target.matches('#pp-a,#pp-b,#pp-c'))pPrev()});document.addEventListener('change',e=>{if(e.target.id==='p-ty')pPrev()});
 function stopEdit(){EDIT=null;$('#p-add').textContent='Ajouter la performance';$('#p-cancel').classList.add('hide')}
@@ -1365,19 +1374,27 @@ $('#p-add').onclick=()=>{
   if(PM==='pyramid'){const a=+$('#pp-a').value,b=+$('#pp-b').value,c=+$('#pp-c').value,d=+$('#pp-d').value,q=pyrSeq(a,b,c);
     if(!q||!(d>=1))return;const t=q.reduce((x,y)=>x+y,0);rec={s:q.length,r:Math.round(t/q.length),t,d,m:'p',q,pq:[a,b,c]}}
   else if(PM==='amrap'){const s=+$('#pa-s').value,r=+$('#pa-r').value,mn=+$('#pa-m').value;if(!(s>=1&&r>=1&&mn>=1))return;rec={s,r,d:Math.round(mn*60),m:'a'}}
+  else if(PM==='r'){const w=Math.round((pn($('#po-w').value)||0)*100)/100;if(!(w>0)){$('#po-w').focus();return}delete g.w;delete g.ty;rec={s:1,r:1,d:0,m:'r',w}}
+  else if(PM==='x'){const r=+$('#pm-r').value;if(!(r>=1))return;rec={s:1,r,d:0,m:'x'}}
   else{const s=+$('#p-s').value,r=+$('#p-r').value,d=+$('#p-d').value;if(!(s>=1&&r>=1&&d>=1))return;rec={s,r,d}}
-  if(EDIT){const i=P.findIndex(x=>x.id===EDIT);if(i>=0)P[i]={id:EDIT,date,...g,...rec};stopEdit()}
-  else{const ne={id:Date.now(),date,...g,...rec},prev=P.filter(x=>lab(x)===lab(g)).map(tot);P.push(ne);
-    if(prev.length&&tot(ne)>Math.max(...prev))celebrate({icon:'award',title:'Nouveau record !',text:lab(g)+' : '+tot(ne)+' reps (avant : '+Math.max(...prev)+')',say:'Nouveau record ! Félicitations !'});
+  const item={date,...g,...rec};
+  if(EDIT){const i=P.findIndex(x=>x.id===EDIT);if(i>=0)P[i]={id:EDIT,...item};stopEdit()}
+  else{const ne={id:Date.now(),...item},same=P.filter(x=>lab(x)===lab(ne)),pT=Math.max(0,...same.map(pVal)),pM=Math.max(0,...same.map(x=>pRate(x)||0));P.push(ne);
+    const nv=pVal(ne),nr=pRate(ne),msg=[];
+    if(same.length&&nv>pT)msg.push(pFmt2(nv)+' '+pUnit(ne)+' (avant : '+pFmt2(pT)+')');
+    if(pM>0&&nr!=null&&nr>pM)msg.push(pFmt1(nr)+' rep/min (avant : '+pFmt1(pM)+')');
+    if(msg.length)celebrate({icon:'award',title:'Nouveau record !',text:lab(ne)+' : '+msg.join(' · '),say:'Nouveau record ! Félicitations !'});
     goalsFrom(rec.m==='p'?{...ne,r:Math.max(...rec.q)}:ne)}
-  saveP();$('#p-filter').value=lab(g);drawP();
+  saveP();$('#p-filter').value=lab(item);drawP();
 };
 $('#p-list').onclick=e=>{const d=e.target.closest('[data-id]'),ed=e.target.closest('[data-edit]');
   if(d){P=P.filter(x=>x.id!==+d.dataset.id);if(EDIT===+d.dataset.id)stopEdit();saveP();drawP()}
   if(ed){const it=P.find(x=>x.id===+ed.dataset.edit);if(!it)return;EDIT=it.id;setPick('p',it);
-    setPM(it.m==='p'?'pyramid':it.m==='a'?'amrap':'emom');
+    setPM(it.m==='p'?'pyramid':it.m==='a'?'amrap':it.m==='r'?'r':it.m==='x'?'x':'emom');
     if(it.m==='p'){const pq=Array.isArray(it.pq)?it.pq:[1,1,Math.max(...(it.q||[it.r]))];$('#pp-a').value=pq[0];$('#pp-b').value=pq[1];$('#pp-c').value=pq[2];$('#pp-d').value=it.d;pPrev()}
     else if(it.m==='a'){$('#pa-s').value=it.s;$('#pa-r').value=it.r;$('#pa-m').value=Math.round(it.d/6)/10}
+    else if(it.m==='r'){$('#po-w').value=fmtIn(it.w);$('#p-w').value=''}
+    else if(it.m==='x'){$('#pm-r').value=it.r}
     else{$('#p-s').value=it.s;$('#p-r').value=it.r;$('#p-d').value=it.d}
     $('#p-date').value=it.date;
     $('#p-add').textContent='Enregistrer la modification';$('#p-cancel').classList.remove('hide');$('#perf').scrollIntoView({behavior:'smooth'})}};
@@ -1385,18 +1402,14 @@ function drawP(){
   const names=[...new Set(P.map(lab))],f=$('#p-filter'),cur=f.value;
   setH(f,'<option value="">Tous les exercices</option>'+names.map(n=>'<option value="'+esc(n)+'">'+esc(n)+'</option>').join(''));
   f.value=names.includes(cur)?cur:'';
-  const asc=[...P].sort((a,b)=>a.date.localeCompare(b.date)||a.id-b.id),best={};
-  asc.forEach(e=>{const t=tot(e),k=lab(e);if(!best[k]||t>best[k].t)best[k]={t,id:e.id}});
-  const list=asc.filter(e=>!f.value||lab(e)===f.value).reverse();
-  setH($('#p-list'),list.map(e=>perfCard(e,best[lab(e)].id===e.id,true)).join(''));
+  const RI=pRecs(P),asc=[...P].sort((a,b)=>a.date.localeCompare(b.date)||a.id-b.id),
+    list=asc.filter(e=>!f.value||lab(e)===f.value).reverse();
+  setH($('#p-list'),list.map(e=>perfCard(e,{t:RI.t(e),m:RI.m(e)},true)).join(''));
   $('#p-empty').classList.toggle('hide',list.length>0);
   const pr=$('#p-prog');
-  if(f.value&&list.length>1){const a=list[list.length-1],z=list[0],dt=tot(z)-tot(a);pr.textContent='Progression : '+tot(a)+' → '+tot(z)+' reps ('+(dt>0?'+':'')+dt+')';pr.classList.remove('hide')}
+  if(f.value&&list.length>1){const a=list[list.length-1],z=list[0],va=pVal(a),vz=pVal(z),dt=+(vz-va).toFixed(2);pr.textContent='Progression : '+pFmt2(va)+' → '+pFmt2(vz)+' '+pUnit(z)+' ('+(dt>0?'+':'')+pFmt2(dt)+')';pr.classList.remove('hide')}
   else pr.classList.add('hide');
-  const ch=$('#p-chart');
-  if(f.value&&list.length>1){const pts=[...list].reverse().slice(-12).map(tot),mx=Math.max(...pts),mn=Math.min(...pts),X=i=>10+i*280/(pts.length-1),Y=v=>mx===mn?55:95-(v-mn)*70/(mx-mn);
-    ch.innerHTML='<svg viewBox="0 0 300 110" role="img" aria-label="Progression" style="width:100%;display:block"><polyline fill="none" stroke="var(--work)" stroke-width="3" points="'+pts.map((v,i)=>X(i)+','+Y(v)).join(' ')+'"/>'+pts.map((v,i)=>'<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="4" fill="var(--work)"/><text x="'+X(i)+'" y="'+(Y(v)-9)+'" font-size="11" text-anchor="middle" fill="var(--mute)">'+v+'</text>').join('')+'</svg>'}
-  else ch.innerHTML='';
+  setH($('#p-recs'),f.value?pRecsHTML(f.value,RI):'');
 }
 
 /* ===== cartes de performance ===== */
@@ -1405,16 +1418,28 @@ function perfIconKey(e){const n=String(e.ex||'').trim().toLowerCase();
   if(m&&hasI(m.k))return m.k;
   const g=G.find(x=>x.k==='autre'&&String(x.name||'').trim().toLowerCase()===n&&hasI(x.ic));
   return g?g.ic:null}
-function perfCard(e,best,acts){
-  const k=perfIconKey(e),im=k?GIMG[k]:'',w=+e.w||0,t=Number(tot(e))||0,fl=isStat(e),u=fl?'s':'reps',m=e.m==='p'?'p':e.m==='a'?'a':'e',q=(m==='p'&&Array.isArray(e.q)?e.q:[]).map(Number).filter(Number.isFinite).slice(0,80),dm=x=>{x=+x||0;return Math.floor(x/60)+' min'+(x%60?' '+x%60+' s':'')};
+function perfCard(e,best,acts){const rt=!!(best&&best.t),rm=!!(best&&best.m),rr=pRate(e);
+  const k=perfIconKey(e),im=k?GIMG[k]:'',w=+e.w||0,t=Number(tot(e))||0,fl=isStat(e),u=fl?'s':'reps',m=e.m==='p'?'p':e.m==='a'?'a':e.m==='r'?'r':e.m==='x'?'x':'e',q=(m==='p'&&Array.isArray(e.q)?e.q:[]).map(Number).filter(Number.isFinite).slice(0,80),dm=x=>{x=+x||0;return Math.floor(x/60)+' min'+(x%60?' '+x%60+' s':'')};
   const ico='<span class="gi '+(w?'lest':'reps')+'">'+(im?'<img alt="" src="'+im+'">':ic('star'))+'</span>';
-  const chips=(m==='p'?'<span class="c-mode">Pyramide</span>':m==='a'?'<span class="c-mode">AMRAP</span>':'')+(e.v?'<span>'+esc(e.v)+'</span>':'')+(m==='p'&&q.length&&q.length<=13?'<span>'+q.join(' · ')+'</span>':'')+(w?'<span class="c-lest">Lestée '+esc(kg(w))+'</span>':'')+(best?'<span class="c-rec">'+ic('trophy')+'Record</span>':'');
-  return '<div class="pf'+(best?' is-rec':'')+'"><div class="pf-h">'+ico+'<div class="pf-t"><b>'+esc(e.ex)+'</b><small>'+esc(fd(String(e.date||'')))+'</small></div>'
+  const chips=(m==='p'?'<span class="c-mode">Pyramide</span>':m==='a'?'<span class="c-mode">AMRAP</span>':m==='r'?'<span class="c-mode">1RM</span>':m==='x'?'<span class="c-mode">Max rep</span>':'')+(e.v?'<span>'+esc(e.v)+'</span>':'')+(m==='p'&&q.length&&q.length<=13?'<span>'+q.join(' · ')+'</span>':'')+(w&&m!=='r'?'<span class="c-lest">Lestée '+esc(kg(w))+'</span>':'')+(rr!=null?'<span>'+pFmt1(rr)+' rep/min</span>':'')+(rt?'<span class="c-rec">'+ic('trophy')+pRecName(e)+'</span>':'')+(rm?'<span class="c-rec">'+ic('trophy')+'Record rep/min</span>':'');
+  return '<div class="pf'+(rt||rm?' is-rec':'')+'"><div class="pf-h">'+ico+'<div class="pf-t"><b>'+esc(e.ex)+'</b><small>'+esc(fd(String(e.date||'')))+'</small></div>'
     +(acts?'<div class="gacts"><button class="rd x" data-edit="'+e.id+'" aria-label="Modifier">'+ic('pencil')+'</button><button class="rd x del" data-id="'+e.id+'" aria-label="Supprimer">'+ic('x')+'</button></div>':'')+'</div>'
     +(chips?'<div class="pf-c">'+chips+'</div>':'')
-    +'<div class="pf-s">'+(m==='p'?'<div><span>Séries</span><b>'+(+e.s||0)+'</b></div><div><span>Palier max</span><b>'+(q.length?Math.max(...q):(+e.r||0))+'<small>'+u+'</small></b></div>':m==='a'?'<div><span>Tours × '+(fl?'sec':'reps')+'</span><b>'+(+e.s||0)+' × '+(+e.r||0)+'</b></div><div><span>Durée</span><b style="font-size:17px">'+dm(e.d)+'</b></div>':'<div><span>Séries × '+(fl?'sec':'reps')+'</span><b>'+(+e.s||0)+' × '+(+e.r||0)+'</b></div><div><span>Durée</span><b>'+(+e.d||0)+'<small>s</small></b></div>')+'<div class="tt"><span>Total</span><b>'+t+'<small>'+u+'</small></b></div></div></div>'}
+    +'<div class="pf-s">'+(m==='r'||m==='x'?'':m==='p'?'<div><span>Séries</span><b>'+(+e.s||0)+'</b></div><div><span>Palier max</span><b>'+(q.length?Math.max(...q):(+e.r||0))+'<small>'+u+'</small></b></div>':m==='a'?'<div><span>Tours × '+(fl?'sec':'reps')+'</span><b>'+(+e.s||0)+' × '+(+e.r||0)+'</b></div><div><span>Durée</span><b style="font-size:17px">'+dm(e.d)+'</b></div>':'<div><span>Séries × '+(fl?'sec':'reps')+'</span><b>'+(+e.s||0)+' × '+(+e.r||0)+'</b></div><div><span>Durée</span><b>'+(+e.d||0)+'<small>s</small></b></div>')+'<div class="tt"><span>'+(m==='r'?'1RM':m==='x'?(fl?'Temps max':'Reps max'):'Total')+'</span><b>'+(m==='r'?pFmt2(w):t)+'<small>'+(m==='r'?'kg':u)+'</small></b></div></div></div>'}
 
 const tot=e=>e.t??e.s*e.r;
+/* ===== records : rep total / rep/min (+ 1RM, max) ===== */
+const pVal=e=>e.m==='r'?(+e.w||0):tot(e),pUnit=e=>e.m==='r'?'kg':isStat(e)?'s':'reps';
+const pRate=e=>{if(e.m==='r'||e.m==='x'||isStat(e))return null;const s=e.m==='a'?+e.d:(+e.s)*(+e.d);return s>0?tot(e)*60/s:null};
+const pFmt1=v=>String(+(+v).toFixed(1)).replace('.',','),pFmt2=v=>String(+(+v).toFixed(2)).replace('.',',');
+const pRecName=e=>e.m==='r'?'Record 1RM':e.m==='x'?'Record max rep':isStat(e)?'Record temps total':'Record rep total';
+function pRecs(list){const asc=[...list].sort((a,b)=>String(a.date||'').localeCompare(String(b.date||''))||(a.id||0)-(b.id||0)),bt=Object.create(null),bm=Object.create(null);
+  asc.forEach(e=>{const k=lab(e),v=pVal(e),r=pRate(e);if(v>0&&(!bt[k]||v>bt[k].v))bt[k]={v,e};if(r!=null&&r>0&&(!bm[k]||r>bm[k].v))bm[k]={v:r,e}});
+  return {bt,bm,t:e=>{const b=bt[lab(e)];return !!b&&b.e===e},m:e=>{const b=bm[lab(e)];return !!b&&b.e===e}}}
+function pRecsHTML(k,RI){const t=RI.bt[k],m=RI.bm[k];if(!t)return '';
+  const S1='font:700 10.5px Sora,Manrope,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);display:block;margin-bottom:3px',
+    tile=(h,v,u,d)=>'<div><span style="'+S1+'">'+h+'</span><b style="font:800 22px/1.15 Sora,Manrope,sans-serif;letter-spacing:-.03em">'+v+'<small style="font:600 12px Manrope,sans-serif;color:var(--mute);margin-left:3px">'+u+'</small></b><small style="display:block;color:var(--mute);font-size:12px;margin-top:2px">'+esc(fd(String(d||'')))+'</small></div>';
+  return '<div style="display:grid;grid-template-columns:'+(m?'1fr 1fr':'1fr')+';gap:14px">'+tile(pRecName(t.e),pFmt2(t.v),pUnit(t.e),t.e.date)+(m?tile('Record rep/min',pFmt1(m.v),'rep/min',m.e.date):'')+'</div>'}
 const pick=x=>'<div class="pk"><label>Type<select id="'+x+'-ty"><option value="d">Dynamique</option><option value="s">Statique</option></select></label><label>Exercice<select id="'+x+'-ex"></select></label><label id="'+x+'-vl">Variante<select id="'+x+'-v"></select></label><label>Lest (kg)<input type="text" id="'+x+'-w" inputmode="decimal" placeholder="0" autocomplete="off"></label><label id="'+x+'-ol" class="pk-wide hide">Nom de l\'exercice<input type="text" id="'+x+'-o" maxlength="40" placeholder="Ex. Burpees"></label><label id="'+x+'-vol" class="pk-wide hide">Nom de la variante<input type="text" id="'+x+'-vo" maxlength="40" placeholder="Ex. Archer"></label></div>';
 function varCh(x){$('#'+x+'-vol').classList.toggle('hide',$('#'+x+'-vl').classList.contains('hide')||$('#'+x+'-v').value!=='Autre')}
 function setV(x){const ex=$('#'+x+'-ex').value,c=ex==='Autre',o=c?[]:[...(V[ex]||['Aucune']),'Autre'];
@@ -1455,7 +1480,7 @@ function pyrSvg(){const ob=R.st.objs,ac=R.log.map(v=>v.n),N=ob.length,mx=Math.ma
   return '<svg viewBox="0 0 300 120" role="img" aria-label="Profil de la pyramide" style="width:100%;display:block"><polyline fill="none" stroke="var(--mute)" stroke-width="2" stroke-dasharray="5 5" opacity=".6" points="'+pts(ob)+'"/><polyline fill="none" stroke="var(--pyr)" stroke-width="4" stroke-linejoin="round" points="'+pts(ac)+'"/>'+ac.map((v,i)=>'<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="4.5" fill="var(--pyr)"/>'+(N<=15?'<text x="'+X(i)+'" y="'+(Y(v)-9)+'" font-size="11" text-anchor="middle" fill="var(--mute)">'+v+'</text>':'')).join('')+'</svg><p class="sub" style="margin:6px 0 0;font-size:13px">Trait plein : réalisé · pointillés : objectif</p>'}
 function renderDone(){
   const am=S.mode==='amrap',n=R.log.length,t=R.total,ex=[...new Set(R.log.map(x=>x.l).filter(Boolean))],best=n&&!am?Math.max(...R.log.map(x=>x.n)):0,rec=[];
-  if(S.mode==='emom'&&S.count)ex.forEach(l=>{const c=R.log.filter(x=>x.l===l).reduce((a,x)=>a+x.n,0),pv=P.filter(e=>lab(e)===l).map(tot);if(pv.length&&c>Math.max(...pv))rec.push(l)});
+  if(S.mode==='emom'&&S.count)ex.forEach(l=>{const L=R.log.filter(x=>x.l===l),c=L.reduce((a,x)=>a+x.n,0),pe=P.filter(e=>lab(e)===l),pv=pe.map(tot),pr=pe.map(pRate).filter(v=>v!=null),st=isStat(EX().find(z=>lab(z)===l)||{}),rt=!st&&S.work>0?c*60/(L.length*S.work):0;if((pv.length&&c>Math.max(...pv))||(pr.length&&rt>Math.max(...pr)))rec.push(l)});
   const avg=n?String(+(t/n).toFixed(1)):'0',time=R.time||0,sp=R.log.map(x=>x.t),plan=INF()||am?null:(S.mode==='pyramid'?SEQ().reduce((a,b)=>a+b,0):S.rounds*S.reps);
   const mvs=!S.count?[]:am?S.mv.map(x=>({name:lab(x),total:n*x.r})):(ex.length>1?ex.map(l=>({name:l,total:R.log.filter(x=>x.l===l).reduce((a,x)=>a+x.n,0)})):[]);
   const mvi=mvs.map(m=>['Reps · '+m.name,m.total]),g1=S.count&&!mvs.length;
@@ -1733,11 +1758,10 @@ function friendGoalsHTML(goals){const L=(Array.isArray(goals)?goals:[]).filter(o
 const okPf=x=>x&&typeof x.ex==='string'&&isFinite(x.s)&&isFinite(x.r);
 const friendPerfList=perf=>(Array.isArray(perf)?perf:[]).filter(okPf);
 const friendPerfLabels=perf=>[...new Set(friendPerfList(perf).map(lab))];
-function friendPerfHTML(perf,filter){const L=friendPerfList(perf),asc=[...L].sort((a,b)=>String(a.date||'').localeCompare(String(b.date||''))||(a.id||0)-(b.id||0)),best={};
-  asc.forEach(e=>{const k=lab(e);if(!best[k]||tot(e)>best[k].t)best[k]={t:tot(e),e}});
+function friendPerfHTML(perf,filter){const L=friendPerfList(perf),RI=pRecs(L),asc=[...L].sort((a,b)=>String(a.date||'').localeCompare(String(b.date||''))||(a.id||0)-(b.id||0));
   const rows=asc.filter(e=>!filter||lab(e)===filter).reverse();
   if(!rows.length)return '<p class="sub">Aucune performance partagée.</p>';
-  return '<div class="plist">'+rows.map(e=>perfCard(e,best[lab(e)].e===e,false)).join('')+'</div>'}
+  return '<div class="plist">'+rows.map(e=>perfCard(e,{t:RI.t(e),m:RI.m(e)},false)).join('')+'</div>'}
 
 /* ===== fil d'actualité ===== */
 let HOME_N=30;
@@ -1746,25 +1770,33 @@ function agoTxt(ts){if(!ts)return '';const d=Date.now()-ts;if(d<60000)return "à
 const FEED_PHOTO=/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/;
 function feedAv(name,photo){const n=String(name||'?'),ini=(n.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('')||'?').toUpperCase();
   return photo&&FEED_PHOTO.test(photo)?'<span class="avatar photo" role="img" aria-label="Photo de '+esc(n)+'" style="background-image:url(\''+photo+'\')"></span>':'<span class="avatar">'+esc(ini)+'</span>'}
-function feedGoalHTML(g,dn){const u=gunit(g),p=Math.floor(gpg(g)*100);
-  const sub='Départ '+fv(g.start,u)+' → objectif '+fv(g.target,u);
+function feedGoalHTML(g,dn,fr){const u=gunit(g),p=Math.floor(gpg(g)*100);
+  let sub='Départ '+fv(g.start,u)+' → objectif '+fv(g.target,u);if(fr!=null)sub+=' · '+fv(fr,u)+' → '+fv(g.cur,u);
   if(dn){const days=g.created&&g.doneDate?Math.max(0,Math.round((Date.parse(g.doneDate)-Date.parse(g.created))/86400000)):null;
     return '<div class="gcard dn"><div class="gh">'+gIconHTML(g)+'<div class="gt"><b>'+esc(gname(g))+'</b><small>'+sub+(days!=null&&isFinite(days)?' · atteint en '+days+' j':' · atteint')+'</small></div></div></div>'}
   return '<div class="gcard"><div class="gh">'+gIconHTML(g)+'<div class="gt"><b>'+esc(gname(g))+'</b><small>'+sub+'</small></div></div><div class="pbar"><i style="width:'+p+'%"></i><span class="pct">'+p+' %</span></div></div>'}
-function feedGoalItems(g,name,photo,me){g=normGoal(g);const out=[{ts:tsOf(g,'created'),t:'g',g:g.done?{...g,done:false,cur:g.start}:g,dn:0,n:name,ph:photo,me}];
-  if(g.done){const at=+g.doneAt>1e12?+g.doneAt:Date.parse(String(g.doneDate||'')+'T23:59:00');out.push({ts:isFinite(at)?at:out[0].ts,t:'g',g,dn:1,n:name,ph:photo,me})}
+function dayTxt(d){const t=Date.parse(String(d||'')+'T12:00:00');if(!isFinite(t))return '';const j=Math.round((Date.parse(today()+'T12:00:00')-t)/864e5);
+  if(j<0)return 'le '+fd(String(d));if(j===0)return "aujourd'hui";if(j===1)return 'hier';if(j<7)return 'il y a '+j+' j';
+  return 'le '+new Date(t).toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:j>300?'numeric':undefined})}
+const dayTs=(d,id)=>{const t=Date.parse(String(d||'')+'T12:00:00');return isFinite(t)?t:(+id>1e12?+id:0)};
+function feedGoalItems(g,name,photo,me){g=normGoal(g);const ct=tsOf(g,'created'),o=+g.id||0,
+  out=[{ts:ct,o,t:'g',g:{...g,done:false,cur:g.start},dn:0,n:name,ph:photo,me}];
+  let prev=+g.start;
+  (Array.isArray(g.hist)?g.hist:[]).forEach(x=>{if(!x||!isFinite(x.v))return;const v=+x.v,p0=prev;prev=v;
+    if(v<=p0||(g.done&&v>=g.target))return;
+    out.push({ts:Math.max(dayTs(x.d,0)||ct,ct+1),o,dt:x.d,t:'g',g:{...g,done:false,cur:v},from:p0,pr:1,dn:0,n:name,ph:photo,me})});
+  if(g.done){const at=+g.doneAt>1e12?+g.doneAt:Date.parse(String(g.doneDate||'')+'T23:59:00');out.push({ts:isFinite(at)?at:ct,o,t:'g',g,dn:1,n:name,ph:photo,me})}
   return out}
 function postHTML(it){const isP=it.t==='p';
-  return '<article class="post"><div class="ph">'+feedAv(it.n,it.ph)+'<div class="pn"><b>'+esc(it.n)+'</b><small>'+esc(agoTxt(it.ts))+'</small></div><span class="ptag '+(isP?'tp':it.dn?'ok':'tg')+'">'+(isP?'Performance':(it.dn?'Objectif atteint':'Objectif'))+'</span></div>'+(isP?perfCard(it.e,it.rec,false):feedGoalHTML(it.g,it.dn))+'</article>'}
-function feedPerfItems(list,name,photo,me){const L=list.filter(okPf),asc=[...L].sort((a,b)=>String(a.date||'').localeCompare(String(b.date||''))||(a.id||0)-(b.id||0)),best={};
-  asc.forEach(e=>{const k=lab(e);if(!best[k]||tot(e)>best[k].t)best[k]={t:tot(e),e}});
-  return L.map(e=>({ts:tsOf(e,'date'),t:'p',e,rec:best[lab(e)].e===e,n:name,ph:photo,me}))}
+  return '<article class="post"><div class="ph">'+feedAv(it.n,it.ph)+'<div class="pn"><b>'+esc(it.n)+'</b><small>'+esc(it.dt?dayTxt(it.dt):agoTxt(it.ts))+'</small></div><span class="ptag '+(isP?'tp':it.dn?'ok':it.pr?'pg':'tg')+'">'+(isP?'Performance':it.dn?'Objectif atteint':it.pr?'Progression':'Objectif')+'</span></div>'+(isP?perfCard(it.e,it.rec,false):feedGoalHTML(it.g,it.dn,it.pr?it.from:null))+'</article>'}
+function feedPerfItems(list,name,photo,me){const L=list.filter(okPf),RI=pRecs(L);
+  return L.map(e=>({ts:dayTs(e.date,e.id),o:+e.id||0,dt:e.date,t:'p',e,rec:{t:RI.t(e),m:RI.m(e)},n:name,ph:photo,me}))}
 function renderHome(){const ctx=window.__feedCtx||{},me=ctx.me||{name:'Toi',photo:''};
   let items=[...feedPerfItems(P,'Toi',me.photo,1),...G.filter(okGf).flatMap(g=>feedGoalItems(g,'Toi',me.photo,1))];
   (ctx.friends||[]).forEach(f=>{const d=f.d;if(!d||d.private)return;
     items=items.concat(feedPerfItems(Array.isArray(d.perf)?d.perf:[],f.name,f.photo,0));
     (Array.isArray(d.goals)?d.goals:[]).filter(okGf).forEach(g=>items.push(...feedGoalItems(g,f.name,f.photo,0)))});
-  items.sort((a,b)=>b.ts-a.ts);
+  items.sort((a,b)=>b.ts-a.ts||(b.o||0)-(a.o||0));
   setH($('#feed'),items.slice(0,HOME_N).map(postHTML).join(''));
   $('#feed-empty').classList.toggle('hide',items.length>0);$('#feed-more').classList.toggle('hide',items.length<=HOME_N);
   const note=!ctx.logged?"Connecte-toi (onglet Profil) pour voir aussi les publications de tes amis.":((ctx.friends||[]).length?'':"Ajoute des amis (onglet Profil) pour voir leurs performances et leurs objectifs ici.");
