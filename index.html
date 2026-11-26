@@ -818,9 +818,10 @@ body[data-sm="custom"]{--glow:#8B5CF6}
 .mvi.cur{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .mvi.cur.drag{position:relative;z-index:2;transform:scale(1.02);border-color:var(--glow);box-shadow:0 8px 22px rgba(0,0,0,.35)}
 .cq2.rw{flex-wrap:nowrap;gap:5px}.cq2.rw button{width:38px}.cq2.rw input[type=number]{width:54px}.cq2 label{white-space:nowrap}
+body[data-pg="setup"] #bell{display:none}
 </style>
 </head>
-<body>
+<body data-pg="setup">
 <div id="splash" aria-hidden="true"><div class="sp-in"><div class="sp-logo"><img id="sp-img" alt=""></div><div class="sp-name">Emom Pro</div></div></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-timer" viewBox="0 0 24 24"><path d="M4 13.5a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M12 9.5v4.5l2.8 1.8"/><path d="M9.5 2.5h5"/></symbol><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></symbol><symbol id="i-infinity" viewBox="0 0 24 24"><path d="M12 12c-1.8-2.4-3.4-4-5.4-4a4 4 0 0 0 0 8c2 0 3.6-1.6 5.4-4s3.4-4 5.4-4a4 4 0 0 1 0 8c-2 0-3.6-1.6-5.4-4"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M3 7h3.5c3 0 4.5 2 6 5s3 5 6 5H21"/><path d="M3 17h3.5c1.4 0 2.5-.6 3.4-1.6M13.5 8.8C14.6 7.7 15.7 7 17.5 7H21"/><path d="M18.5 4 21 7l-2.5 3M18.5 14l2.5 3-2.5 3"/></symbol><symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01"/><path d="M8.3 14.2c.9 1.6 2.1 2.5 3.7 2.5s2.8-.9 3.7-2.5"/></symbol><symbol id="i-meh" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01"/><path d="M9 15.5h6"/></symbol><symbol id="i-frown" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01"/><path d="M8.3 16.8c.9-1.6 2.1-2.5 3.7-2.5s2.8.9 3.7 2.5"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.4-9.3-9.4C1.6 7.4 3.8 4.5 7 4.5c2 0 3.7 1.1 5 3 1.3-1.9 3-3 5-3 3.2 0 5.4 2.9 4.3 6.1C19.5 15.6 12 20 12 20z"/></symbol><symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10.5 13.5"/><path d="M21 3l-6.5 18-4-7.5L3 9.5z"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.5h16v11H10l-4.5 3.5v-3.5H4z"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M8 8a4 4 0 1 0 8 0a4 4 0 1 0 -8 0M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol><symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><path d="M13 7a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M7 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol><symbol id="i-pyramid" viewBox="0 0 24 24"><path d="M12 4 3.5 20h17z"/><path d="M7.5 14h9"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></symbol><symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6 2h12M6 22h12"/><path d="M7 2v3.5c0 2 2.2 3.6 5 6.5-2.8 2.9-5 4.5-5 6.5V22"/><path d="M17 2v3.5c0 2-2.2 3.6-5 6.5 2.8 2.9 5 4.5 5 6.5V22"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></symbol><symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></symbol><symbol id="i-weight" viewBox="0 0 24 24"><path d="M7 21h10l2-10H5z"/><path d="M9 11a3 3 0 0 1 6 0"/></symbol><symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/><path d="M19 6.5a8 8 0 0 1 0 11"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></symbol><symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></symbol><symbol id="i-award" viewBox="0 0 24 24"><path d="M6 9a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"/><path d="M8.5 14.5 7 22l5-3 5 3-1.5-7.5"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M8 3h8v3H8z"/><path d="M6 5H5a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-1"/><path d="M8 12h8M8 16h5"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="M7 8l5-5 5 5"/><path d="M4 20h16"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><path d="M8 21v-6h8v6"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><path d="M9 9h11v11H9z"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol><symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.4l-5.5 3 1-6.3L3 9.7l6.2-.9z"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></symbol><symbol id="i-venus" viewBox="0 0 24 24"><path d="M7 9a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M12 14v8M9 18h6"/></symbol><symbol id="i-mars" viewBox="0 0 24 24"><path d="M5 14a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M14 10l6-6M15 4h5v5"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="M4 11a7 7 0 1 0 14 0a7 7 0 1 0 -14 0M20 20l-4-4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><path d="M8.5 13a3.5 3.5 0 1 0 7.0 0a3.5 3.5 0 1 0 -7.0 0"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M5.5 8a3.5 3.5 0 1 0 7.0 0a3.5 3.5 0 1 0 -7.0 0M2.5 20c0-3.6 2.9-5.5 6.5-5.5s6.5 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7"/><path d="M17.5 14.7c2.5.5 4 2.2 4 5.3"/></symbol><symbol id="i-userplus" viewBox="0 0 24 24"><path d="M6 8a4 4 0 1 0 8 0a4 4 0 1 0 -8 0M2.5 21c0-3.8 3.4-6 7.5-6"/><path d="M19 8v6M16 11h6"/></symbol><symbol id="i-arrowleft" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol></defs></svg>
 <nav id="tabs" aria-label="Navigation" style="--i:1"><i class="pill" aria-hidden="true"></i><button data-t="home" aria-label="Actualités"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-home"/></svg></span></button><button class="on" data-t="setup" aria-label="Chrono"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-timer"/></svg></span></button><button data-t="perf" aria-label="Performances"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-chart"/></svg></span></button><button data-t="profile" aria-label="Profil"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-user"/></svg></span></button><button data-t="settings" aria-label="Paramètres"><span class="ti"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-sliders"/></svg></span></button></nav>
@@ -938,7 +939,7 @@ body[data-sm="custom"]{--glow:#8B5CF6}
     </div>
   <h3 class="sec">Séance</h3>
   <div class="card sc"><div class="row"><div>Compter les répétitions<small>Total pendant et à la fin</small></div><button class="sw" id="sw-count" role="switch" aria-label="Compter les répétitions"></button></div>
-    <div class="row"><div>Notification série suivante<small id="nf-st"></small></div><button type="button" class="nfb hide" id="nf-btn">Activer</button></div>
+    <div class="row"><div>Notification série suivante<small id="nf-st"></small></div><button class="sw" id="sw-nf" role="switch" aria-label="Notification avant la série suivante"></button></div>
     <div class="row"><div>Alerte avant la série suivante<small id="nf-dl"></small></div><input type="range" id="nf-d" min="2" max="30" step="1" aria-label="Délai de l'alerte en secondes"></div></div>
   <h3 class="sec">Données</h3>
   <div class="card sc"><div class="row"><div>Sauvegarde<small>Exporter ou importer tes données</small></div><button class="rd" id="bk-open" aria-label="Sauvegarde des données"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-save"/></svg></button></div></div>
@@ -1141,7 +1142,7 @@ document.addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.c
 /* ré-écrit un bloc seulement s'il a changé (évite de relancer les animations et de faire clignoter) */
 const setH=(el,h)=>{if(el.__h===h)return false;el.__h=h;el.innerHTML=h;return true};
 const RING={set off(v){const a=$('#ring'),b=$('#ringg');a.style.strokeDashoffset=v;if(b)b.style.strokeDashoffset=v}};
-let S={rounds:10,work:60,reps:10,inf:false,count:true,vol:70,voice:true,ex:[],mode:'emom',pstop:false,pm:null,aType:'time',aMin:10,aRounds:5,mv:[],cs:[],cmode:'classic',cloop:false,hm:[],nfSec:5,stop:false,pStart:1,pStep:1,pMax:5,vgender:'m',mix:true,rstyle:'classic',theme:(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')};
+let S={rounds:10,work:60,reps:10,inf:false,count:true,vol:70,voice:true,ex:[],mode:'emom',pstop:false,pm:null,aType:'time',aMin:10,aRounds:5,mv:[],cs:[],cmode:'classic',cloop:false,nfOn:true,hm:[],nfSec:5,stop:false,pStart:1,pStep:1,pMax:5,vgender:'m',mix:true,rstyle:'classic',theme:(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')};
 try{Object.assign(S,JSON.parse(localStorage.getItem('emom')||'{}'))}catch(e){}
 S.mix=true;
 S.stop=false;S.pstop=false;if(S.vvol==null)S.vvol=S.vol;
@@ -1351,7 +1352,7 @@ function testVoice(){unlockAudio();say('Série 1')}
 ['#vol','#vol2'].forEach(id=>{$(id).oninput=e=>setVol(e.target.value);$(id).onchange=testVol});
 ['#vvol','#vvol2'].forEach(id=>{$(id).oninput=e=>{S.vvol=+e.target.value;save();draw()};$(id).onchange=testVoice});
 function buzz(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
-function _show(id){['home','setup','run','done','perf','detail','recap','profile','settings'].forEach(x=>{const el=$('#'+x);if(el)el.classList.toggle('hide',x!==id)});document.body.className='';$('#tabs').classList.toggle('hide',id==='run');document.querySelectorAll('#tabs [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===(['home','perf','profile','settings'].includes(id)?id:'setup')));navSel(id);if(id==='profile'&&window.__refreshProfile)window.__refreshProfile();if(id==='home'){renderHome();if(window.__refreshFeed)window.__refreshFeed()}}
+function _show(id){['home','setup','run','done','perf','detail','recap','profile','settings'].forEach(x=>{const el=$('#'+x);if(el)el.classList.toggle('hide',x!==id)});document.body.className='';document.body.dataset.pg=id;$('#tabs').classList.toggle('hide',id==='run');document.querySelectorAll('#tabs [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===(['home','perf','profile','settings'].includes(id)?id:'setup')));navSel(id);if(id==='profile'&&window.__refreshProfile)window.__refreshProfile();if(id==='home'){renderHome();if(window.__refreshFeed)window.__refreshFeed()}}
 const PGI={home:0,setup:1,perf:2,profile:3,settings:4};let curPg='setup';
 function navSel(id){const t=['home','perf','profile','settings'].includes(id)?id:'setup';
   document.querySelectorAll('#tabs [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
@@ -1410,7 +1411,7 @@ function tick(){
 /* ===== notification « série suivante dans 5 s » (app en arrière-plan) ===== */
 let NF_SW=null;
 try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').then(r=>{NF_SW=r}).catch(()=>{})}catch(e){}
-const nfOK=()=>'Notification' in window;
+const nfOK=()=>'Notification' in window,NFON=()=>S.nfOn!==false;
 const NFS=()=>Math.min(30,Math.max(2,Math.round(+S.nfSec)||5)),nfLead=ms=>Math.min(NFS(),Math.max(1,Math.floor((ms||0)/1000)-1));
 function nfDraw(){const r=$('#nf-d');if(!r)return;if(document.activeElement!==r)r.value=NFS();$('#nf-dl').textContent=NFS()+' s avant le début de la série'}
 $('#nf-d').oninput=e=>{S.nfSec=+e.target.value;save();nfDraw();nfStatus()};
@@ -1424,7 +1425,7 @@ function nfMsg(nx,sc){const sx=sc||NFS(),pyr=S.mode==='pyramid',E=EX(),ob=pyr?S.
     tg=pyr||S.mode==='custom'?TG(nx):(R.last[l]??S.reps),u=ob&&isStat(ob)?' s':(tg>1?' reps':' rep');
   return {title:!INF()&&nx>=NR()?'Dernière série dans '+sx+' s':'Série '+nx+(INF()?'':' / '+NR())+' dans '+sx+' s',body:[l,tg!=null?tg+u:''].filter(Boolean).join(' · ')}}
 function nfCheck(left){
-  if(R.pushOK||R.paused||R.stopWork||document.visibilityState!=='hidden'||left<=0)return;const sc=nfLead(R.dur);if(left>sc*1000)return;
+  if(!NFON()||R.pushOK||R.paused||R.stopWork||document.visibilityState!=='hidden'||left<=0)return;const sc=nfLead(R.dur);if(left>sc*1000)return;
   const ph=R.phase,nx=ph==='work'&&!STOP()&&!(S.mode==='custom'&&S.cmode==='stop')&&(INF()||R.round<NR())?R.round+1:ph==='rest'&&(INF()||R.round<NR())?R.round+1:0;
   if(!nx)return;const key=nx+'|'+ph;if(R.nf===key)return;R.nf=key;
   const m=nfMsg(nx,sc);nfShow(m.title,m.body)}
@@ -1436,7 +1437,7 @@ async function pushSub(){if(!VAPID_PUBLIC||!('PushManager' in window)||!('servic
   const reg=NF_SW||await navigator.serviceWorker.ready;let sub=await reg.pushManager.getSubscription();
   if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(VAPID_PUBLIC)});return sub.toJSON()}
 async function doPlan(){
-  if(!window.__push||!VAPID_PUBLIC||!R||R.amrap||S.mode==='amrap'||R.paused||!nfOK()||Notification.permission!=='granted')return;
+  if(!NFON()||!window.__push||!VAPID_PUBLIC||!R||R.amrap||S.mode==='amrap'||R.paused||!nfOK()||Notification.permission!=='granted')return;
   const sub=await pushSub();if(!sub)return;const now=Date.now(),it=[],add=(k,end,dur)=>{const sc=nfLead(dur),m=nfMsg(k,sc);it.push({at:Math.max(end-sc*1000,now+1500),title:m.title,body:m.body})};
   if(R.phase==='rest'){if(INF()||R.round<NR())add(R.round+1,R.end,R.dur)}
   else if(R.phase==='work'&&!STOP()&&!(S.mode==='custom'&&S.cmode==='stop')){const last=INF()?R.round+40:NR();let e=R.end,d=R.dur;for(let k=R.round+1;k<=last;k++){add(k,e,d);if(CSTOP(k))break;d=WK(k)*1000;e+=d}}
@@ -1445,12 +1446,12 @@ async function doPlan(){
   if(R)R.pushOK=ok}
 const pushPlan=()=>{pq=pq.then(doPlan).catch(()=>{})};
 const pushCancel=()=>{pq=pq.then(async()=>{if(window.__push&&PV.n){const p=PV;PV={...p,n:0};await window.__push.cancel({sid:p.sid,v:p.v,n:p.n})}}).catch(()=>{})};
-function nfStatus(){const st=$('#nf-st'),b=$('#nf-btn');if(!st)return;nfDraw();
-  if(!nfOK()){st.textContent="Indisponible ici : ajoute l'app à l'écran d'accueil (Safari → Partager)";b.classList.add('hide');return}
+function nfStatus(){const st=$('#nf-st'),sw=$('#sw-nf');if(!st)return;nfDraw();
+  const on=NFON();sw.classList.toggle('on',on);sw.setAttribute('aria-checked',String(on));$('#nf-d').disabled=!on;$('#nf-d').closest('.row').style.opacity=on?'':'.45';
+  if(!nfOK()){st.textContent="Indisponible ici : ajoute l'app à l'écran d'accueil (Safari → Partager)";return}
   const p=Notification.permission;
-  st.textContent=p==='granted'?'Activée : alerte '+NFS()+' s avant la série suivante':p==='denied'?'Bloquée : autorise-la dans Réglages iOS → Notifications':'Désactivée';
-  b.classList.toggle('hide',p!=='default')}
-$('#nf-btn').onclick=async()=>{await nfAsk();nfStatus()};
+  st.textContent=!on?'Désactivée':p==='granted'?'Activée : alerte '+NFS()+' s avant la série suivante':p==='denied'?'Bloquée : autorise-la dans Réglages iOS → Notifications':'Activée : autorisation à accorder'}
+$('#sw-nf').onclick=async()=>{S.nfOn=!NFON();save();if(S.nfOn)await nfAsk();else pushCancel();nfStatus()};
 function startAmrap(){
   const n=Date.now();R.phase='amrap';R.amrap=true;R.cu=S.aType==='rounds';R.t0=n;R.start=n;R.lapStart=n;lastSec=null;
   R.end=n+(R.cu?1e9:S.aMin*60000);R.dur=R.cu?0:S.aMin*60000;
