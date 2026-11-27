@@ -789,8 +789,8 @@ body.work #bell,body.rest #bell,body.wait #bell{display:none}
 .fe .ic{width:34px;height:34px;margin:0}
 .fe.on{color:var(--c);border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent)}
 .nfb{all:unset;flex:none;padding:10px 16px;border-radius:12px;background:var(--work);color:#fff;font:700 13px Manrope,sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
-#cq,#pyq{position:fixed;inset:0;z-index:56;display:flex;align-items:flex-end;justify-content:center;background:rgba(5,8,14,.6);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
-#cq .pyq-card,#pyq .pyq-card{width:100%;max-width:520px;max-height:88%;display:flex;flex-direction:column;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:22px 22px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));box-sizing:border-box}
+#cq,#favn,#pyq{position:fixed;inset:0;z-index:56;display:flex;align-items:flex-end;justify-content:center;background:rgba(5,8,14,.6);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+#cq .pyq-card,#favn .pyq-card,#pyq .pyq-card{width:100%;max-width:520px;max-height:88%;display:flex;flex-direction:column;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:22px 22px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));box-sizing:border-box}
 .pyq-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}.pyq-h b{font:800 17px Sora,Manrope,sans-serif}
 .pyq-c{all:unset;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:color-mix(in srgb,var(--ink) 8%,transparent);-webkit-tap-highlight-color:transparent}
 #cq-list,#pyq-list{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;margin:8px 0}
@@ -819,6 +819,17 @@ body[data-sm="custom"]{--glow:#8B5CF6}
 .mvi.cur.drag{position:relative;z-index:2;transform:scale(1.02);border-color:var(--glow);box-shadow:0 8px 22px rgba(0,0,0,.35)}
 .cq2.rw{flex-wrap:nowrap;gap:5px}.cq2.rw button{width:38px}.cq2.rw input[type=number]{width:54px}.cq2 label{white-space:nowrap}
 body[data-pg="setup"] #bell{display:none}
+#fav-btn,#lib-btn{position:absolute;top:14px;z-index:4}#lib-btn{right:68px}#fav-btn{right:116px}
+#favn-in{width:100%;box-sizing:border-box;height:46px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:700 16px Manrope,sans-serif;padding:0 12px}
+.lib-h{display:flex;align-items:center;gap:12px}.lib-h h1{margin:0}
+.fav{padding:14px;margin:0 0 10px}.fav .fh{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.fav .fh b{font:800 17px Sora,sans-serif;min-width:0;overflow-wrap:anywhere}
+.fav .fm{flex:none;font:700 12px Manrope,sans-serif;padding:4px 10px;border-radius:99px;background:color-mix(in srgb,var(--glow,#888) 20%,transparent)}
+.fav small{display:block;margin-top:4px;color:var(--mute);font:600 13px Manrope,sans-serif}
+.fau{display:flex;align-items:center;gap:8px;margin-top:8px;font:700 13px Manrope,sans-serif}.fau .avatar{width:26px;height:26px;font-size:11px}
+.fa{display:flex;gap:8px;margin-top:12px}
+.fa button{height:44px;min-width:44px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);font:700 15px Manrope,sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer}
+.fa .fgo{flex:1;background:var(--work);border-color:transparent;color:#fff}.fa button:disabled{opacity:.55}.fa .fdel{background:#E5484D;border-color:transparent;color:#fff}
 </style>
 </head>
 <body data-pg="setup">
@@ -833,6 +844,8 @@ body[data-pg="setup"] #bell{display:none}
   <button type="button" class="wide hide" id="feed-more">Afficher plus</button>
 </main><main id="setup">
   <h1>S'entraîner</h1>
+  <button type="button" class="rd" id="fav-btn" aria-label="Ajouter cette séance aux favoris"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></button>
+  <button type="button" class="rd" id="lib-btn" aria-label="Ouvrir la bibliothèque de séances"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-list"/></svg></button>
   <button type="button" class="rd" id="mf-btn" aria-label="Filtrer les types de séance" aria-expanded="false"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-sliders"/></svg></button>
   <div class="mfp hide" id="mf-pop" role="group" aria-label="Types de séance affichés"><label class="chk"><input type="checkbox" data-mf="emom"><span class="box"></span>Emom</label><label class="chk"><input type="checkbox" data-mf="pyramid"><span class="box"></span>Pyramide</label><label class="chk"><input type="checkbox" data-mf="amrap"><span class="box"></span>AMRAP</label><label class="chk"><input type="checkbox" data-mf="custom"><span class="box"></span>Libre</label></div>
   <p class="sub">Règle ta séance, puis lance le chrono.</p>
@@ -849,8 +862,9 @@ body[data-pg="setup"] #bell{display:none}
   <div class="row m-a a-rounds"><div>Nombre de tours<small>à terminer, le chrono défile</small></div><div class="step"><button class="rd" data-k="aRounds" data-d="-1" aria-label="Moins">−</button><input type="number" inputmode="numeric" class="num" id="v-aRounds" min="0" aria-label="Valeur"><button class="rd" data-k="aRounds" data-d="1" aria-label="Plus">+</button></div></div>
   <div class="m-a"><div class="seg"><button id="mv-btn" aria-expanded="false"><span class="ic-l"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-dumbbell"/></svg></span>Mouvement / circuit <span class="chev"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></span></button></div><div class="acc" id="mvs"><div class="acc-in"><div class="card" style="margin:0 0 4px"><b>Mouvement ou circuit</b><p class="sub" style="margin:2px 0 10px;font-size:14px">Ajoute un mouvement, ou plusieurs pour un circuit : chaque tour les regroupe tous.</p><div id="a-pick"></div><div class="row" style="background:var(--bg)"><div>Répétitions</div><div class="step"><button class="rd" id="a-rm" aria-label="Moins">−</button><input type="number" inputmode="numeric" class="num" id="a-r" min="1" value="10" aria-label="Répétitions"><button class="rd" id="a-rp" aria-label="Plus">+</button></div></div><button class="wide" id="a-add">Ajouter au tour</button><div class="list" id="a-list"></div></div></div></div><div class="card hide" id="am-tot"></div></div>
   <div class="m-c"><div class="card" style="margin:0 0 12px"><b>Séance libre</b><p class="sub" style="margin:2px 0 12px;font-size:14px">Un tableau : une ligne par série.</p>
-    <div class="seg" id="c-mode" role="group" aria-label="Mode de la séance libre"><button type="button" data-cm="classic">Classic</button><button type="button" data-cm="amrap">AMRAP</button><button type="button" data-cm="stop">Stop</button></div>
+    <div class="seg" id="c-mode" role="group" aria-label="Mode de la séance libre"><button type="button" data-cm="classic">Classic</button><button type="button" data-cm="amrap">AMRAP</button></div>
     <p class="sub" id="c-mdesc" style="margin:-4px 0 12px;font-size:13px"></p>
+    <label class="chk" id="c-stl"><input type="checkbox" id="c-st"><span class="box"></span>Stop (pause au début de chaque série)</label>
     <label class="chk"><input type="checkbox" id="c-loop"><span class="box"></span>Boucle infinie (jusqu'à ton arrêt)</label>
     <div id="c-list" style="margin:12px 0 10px"></div>
     <p class="sub" style="margin:-2px 0 12px;font-size:12px">Appui long sur une série, puis glisse pour la déplacer.</p>
@@ -900,9 +914,17 @@ body[data-pg="setup"] #bell{display:none}
   <div class="tiles" id="d-tiles"></div>
   <button class="big alt dk" id="d-detail"><span class="ic-l"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-list"/></svg></span>Détail des séries</button>
   <div class="card hide" id="d-feel" style="margin:0 0 12px"><b style="display:block;font:700 14px Manrope,sans-serif;margin-bottom:10px">Ton ressenti sur cette séance</b><div role="radiogroup" aria-label="Ressenti" style="display:flex;gap:10px"><button type="button" class="fe" role="radio" aria-checked="false" data-fe="g" style="--c:#2FBF71"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-smile"/></svg>Bien</button><button type="button" class="fe" role="radio" aria-checked="false" data-fe="n" style="--c:#F5A524"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-meh"/></svg>Moyen</button><button type="button" class="fe" role="radio" aria-checked="false" data-fe="b" style="--c:#E5484D"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-frown"/></svg>Pas top</button></div></div>
+  <button class="big alt dk" id="dfav"><span class="ic-l"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span>Ajouter aux favoris</button>
   <button class="big alt dk" id="dsave">Enregistrer dans Performances</button>
   <button class="big alt dk" id="d-recap"><span class="ic-l"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-download"/></svg></span>Télécharger le récap</button>
   <button class="big" id="again"><span class="ic-l"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-refresh"/></svg></span>Nouvelle séance</button>
+</main>
+
+<main id="lib" class="hide">
+  <div class="lib-h"><button type="button" class="rd" id="lib-back" aria-label="Retour"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-arrowleft"/></svg></button><h1>Bibliothèque</h1></div>
+  <p class="sub">Tes séances favorites et celles de tes amis.</p>
+  <div class="seg" id="lib-tabs"><button type="button" class="on" data-lt="mine"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-star"/></svg>Mes favoris</button><button type="button" data-lt="friends"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-users"/></svg>Amis</button></div>
+  <div id="lib-list" style="margin-top:14px"></div>
 </main>
 
 <main id="detail" class="hide">
@@ -957,8 +979,9 @@ body[data-pg="setup"] #bell{display:none}
       <label>Reps par série<input type="number" id="p-r" inputmode="numeric" min="1" value="5"></label>
       <label>Durée (s)<input type="number" id="p-d" inputmode="numeric" min="10" value="60"></label>
     </div>
-    <div id="pb-libre" class="hide"><div class="seg" id="pl-mode" role="group" aria-label="Mode de la séance libre"><button type="button" data-cm="classic">Classic</button><button type="button" data-cm="amrap">AMRAP</button><button type="button" data-cm="stop">Stop</button></div>
+    <div id="pb-libre" class="hide"><div class="seg" id="pl-mode" role="group" aria-label="Mode de la séance libre"><button type="button" data-cm="classic">Classic</button><button type="button" data-cm="amrap">AMRAP</button></div>
       <p class="sub" id="pl-mdesc" style="margin:-4px 0 10px;font-size:13px"></p>
+      <label class="chk" id="pl-stl"><input type="checkbox" id="pl-st"><span class="box"></span>Stop (pause au début de chaque série)</label>
       <div id="pl-list" style="margin:10px 0"></div><p class="sub" id="pl-prev" style="margin:0 0 10px;font-size:13px"></p>
       <p class="sub" style="margin:-4px 0 10px;font-size:12px">Appui long sur une série, puis glisse pour la déplacer.</p>
       <button id="pl-add" type="button" class="wide" style="margin:0 0 12px"><span class="ic-l"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></span>Ajouter une série</button></div>
@@ -1107,6 +1130,11 @@ body[data-pg="setup"] #bell{display:none}
 <div id="bn-bd" class="hide"></div>
 <div id="bn" class="hide" role="dialog" aria-label="Notifications"><h4>Notifications</h4><div id="bn-list"></div></div>
 <div id="chat" class="hide" role="dialog" aria-label="Discussion"><div class="ch"><button id="chat-back" type="button" aria-label="Retour"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-arrowleft"/></svg></button><div id="chat-av"></div><b id="chat-name"></b></div><div id="chat-list"></div><div class="cf"><input id="chat-in" type="text" maxlength="500" placeholder="Écrire un message…" autocomplete="off" enterkeyhint="send" aria-label="Message"><button id="chat-send" type="button" aria-label="Envoyer"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-send"/></svg></button></div></div>
+<div id="favn" class="hide" role="dialog" aria-label="Nom de la séance favorite"><div class="pyq-card">
+  <div class="pyq-h"><b id="favn-t">Nouvelle séance favorite</b><button id="favn-x" type="button" class="pyq-c" aria-label="Fermer"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-x"/></svg></button></div>
+  <p class="sub" id="favn-s" style="margin:0;font-size:13px"></p>
+  <input type="text" id="favn-in" maxlength="40" placeholder="Nom de la séance" autocomplete="off">
+  <div class="pyq-f"><button id="favn-ok" type="button" class="pyq-b pri">Enregistrer</button></div></div></div>
 <div id="cq" class="hide" role="dialog" aria-label="Séries de la séance libre"><div class="pyq-card">
   <div class="pyq-h"><b id="cq-t">Séries</b><button id="cq-x" type="button" class="pyq-c" aria-label="Fermer"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-x"/></svg></button></div>
   <p class="sub" id="cq-tot" style="margin:0;font-size:13px"></p>
@@ -1142,14 +1170,14 @@ document.addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.c
 /* ré-écrit un bloc seulement s'il a changé (évite de relancer les animations et de faire clignoter) */
 const setH=(el,h)=>{if(el.__h===h)return false;el.__h=h;el.innerHTML=h;return true};
 const RING={set off(v){const a=$('#ring'),b=$('#ringg');a.style.strokeDashoffset=v;if(b)b.style.strokeDashoffset=v}};
-let S={rounds:10,work:60,reps:10,inf:false,count:true,vol:70,voice:true,ex:[],mode:'emom',pstop:false,pm:null,aType:'time',aMin:10,aRounds:5,mv:[],cs:[],cmode:'classic',cloop:false,nfOn:true,hm:[],nfSec:5,stop:false,pStart:1,pStep:1,pMax:5,vgender:'m',mix:true,rstyle:'classic',theme:(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')};
+let S={rounds:10,work:60,reps:10,inf:false,count:true,vol:70,voice:true,ex:[],mode:'emom',pstop:false,pm:null,aType:'time',aMin:10,aRounds:5,mv:[],cs:[],cmode:'classic',cst:false,cloop:false,nfOn:true,hm:[],nfSec:5,stop:false,pStart:1,pStep:1,pMax:5,vgender:'m',mix:true,rstyle:'classic',theme:(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')};
 try{Object.assign(S,JSON.parse(localStorage.getItem('emom')||'{}'))}catch(e){}
 S.mix=true;
 S.stop=false;S.pstop=false;if(S.vvol==null)S.vvol=S.vol;
 if(S.mode==='simple'||S.mode==='advanced')S.mode='emom';
 if(!Array.isArray(S.cs))S.cs=[];if(!Array.isArray(S.hm))S.hm=[];
 if(S.cs.some(c=>c&&!c.t)){const o=S.cs;S.cs=[];S.cstop=o.some(c=>c.stop);o.forEach(c=>{S.cs.push({t:'m',ex:c.ex,r:+c.r||10,d:+c.d||60});if(S.cstop&&c.stop)S.cs.push({t:'r',d:+c.d||60})})}
-S.cs=S.cs.filter(c=>c&&c.t!=='r');if(S.cstop)S.cmode='amrap';if(!['classic','amrap','stop'].includes(S.cmode))S.cmode='classic';delete S.cstop;S.cloop=!!S.cloop;
+S.cs=S.cs.filter(c=>c&&c.t!=='r');if(S.cstop)S.cmode='amrap';if(!['classic','amrap','stop'].includes(S.cmode))S.cmode='classic';delete S.cstop;if(S.cmode==='stop')S.cst=true;S.cst=!!S.cst;S.cloop=!!S.cloop;
 if(!S.vgMig){S.vgender='m';S.vgMig=1}
 const save=()=>{try{localStorage.setItem('emom',JSON.stringify(S))}catch(e){}};
 const mins={rounds:1,work:10,reps:0,pStart:1,pStep:1,pMax:1,aMin:1,aRounds:1};
@@ -1352,8 +1380,8 @@ function testVoice(){unlockAudio();say('Série 1')}
 ['#vol','#vol2'].forEach(id=>{$(id).oninput=e=>setVol(e.target.value);$(id).onchange=testVol});
 ['#vvol','#vvol2'].forEach(id=>{$(id).oninput=e=>{S.vvol=+e.target.value;save();draw()};$(id).onchange=testVoice});
 function buzz(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
-function _show(id){['home','setup','run','done','perf','detail','recap','profile','settings'].forEach(x=>{const el=$('#'+x);if(el)el.classList.toggle('hide',x!==id)});document.body.className='';document.body.dataset.pg=id;$('#tabs').classList.toggle('hide',id==='run');document.querySelectorAll('#tabs [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===(['home','perf','profile','settings'].includes(id)?id:'setup')));navSel(id);if(id==='profile'&&window.__refreshProfile)window.__refreshProfile();if(id==='home'){renderHome();if(window.__refreshFeed)window.__refreshFeed()}}
-const PGI={home:0,setup:1,perf:2,profile:3,settings:4};let curPg='setup';
+function _show(id){['home','setup','run','done','perf','detail','recap','profile','settings','lib'].forEach(x=>{const el=$('#'+x);if(el)el.classList.toggle('hide',x!==id)});document.body.className='';document.body.dataset.pg=id;$('#tabs').classList.toggle('hide',id==='run');document.querySelectorAll('#tabs [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===(['home','perf','profile','settings'].includes(id)?id:'setup')));navSel(id);if(id==='profile'&&window.__refreshProfile)window.__refreshProfile();if(id==='home'){renderHome();if(window.__refreshFeed)window.__refreshFeed()}if(id==='lib')libDraw()}
+const PGI={home:0,setup:1,lib:1,perf:2,profile:3,settings:4};let curPg='setup';
 function navSel(id){const t=['home','perf','profile','settings'].includes(id)?id:'setup';
   document.querySelectorAll('#tabs [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
   $('#tabs').style.setProperty('--i',['home','setup','perf','profile','settings'].indexOf(t))}
@@ -1752,7 +1780,7 @@ $('#a-rm').onclick=()=>aR(-1);$('#a-rp').onclick=()=>aR(1);$('#a-r').onblur=()=>
 $('#a-add').onclick=()=>{const g=getPick('a');if(!g)return;S.mv.push({...g,r:Math.max(1,parseInt($('#a-r').value)||1)});save();drawEx();draw()};
 $('#a-list').onclick=e=>{const c=e.target.closest('[data-i]');if(!c)return;S.mv.splice(+c.dataset.i,1);save();drawEx();draw()};
 /* ===== séance Libre : tableau de lignes ===== */
-const CMD={classic:'Les séries s’enchaînent, chacune avec son chrono.',amrap:'Sans chrono : tu fais tes reps puis tu touches pour passer à la série suivante.',stop:'Chaque série a son chrono, qui se met en pause à la fin : touche pour passer à la suivante.'};
+const CMD={classic:'Les séries s’enchaînent, chacune avec son chrono.',amrap:'Sans chrono : tu fais tes reps puis tu touches pour passer à la série suivante.',stop:'Chaque série démarre en pause : touche pour lancer son chrono.'};
 const CQL=EXL.d.concat(EXL.s),cuDef=()=>({t:'m',ex:{ex:'Pompes',v:''},r:10,d:60});
 const cuBtn=i=>'<button type="button" data-ed="'+i+'" aria-label="Modifier la série '+(i+1)+'">'+ic('pencil')+'</button><button type="button" data-dup="'+i+'" aria-label="Dupliquer la série '+(i+1)+'">'+ic('copy')+'</button>';
 const cuRows=(rows,stop)=>rows.length?rows.map((c,i)=>{if(c.t==='r')return '<div class="mvi cur" data-i="'+i+'"><i>'+(i+1)+'</i><div><b>Repos</b><small>'+(+c.d||0)+' s</small></div>'+cuBtn(i)+'</div>';const r=+c.r||0;
@@ -1779,16 +1807,18 @@ function cuBind(el,get,set,am){
     if(ed){const i=+ed.dataset.ed;cqOpen([get()[i]],am(),o=>{const r=get().slice();r[i]=o[0];set(r)},{single:1,title:'Série '+(i+1),del:()=>{const r=get().slice();r.splice(i,1);set(r)}})}
     else if(dp){const r=get().slice(),i=+dp.dataset.dup;if(r.length>=60){toast('60 séries maximum');return}r.splice(i+1,0,JSON.parse(JSON.stringify(r[i])));set(r)}});
   cuDrag(el,get,set)}
-function cuDraw(){const L=$('#c-list');if(!L)return;document.querySelectorAll('#c-mode [data-cm]').forEach(b=>b.classList.toggle('on',b.dataset.cm===S.cmode));$('#c-mdesc').textContent=CMD[S.cmode];$('#c-loop').checked=!!S.cloop;L.innerHTML=cuRows(S.cs,S.cmode==='amrap')}
+function cuDraw(){const L=$('#c-list');if(!L)return;document.querySelectorAll('#c-mode [data-cm]').forEach(b=>b.classList.toggle('on',b.dataset.cm===(S.cmode==='amrap'?'amrap':'classic')));$('#c-mdesc').textContent=CMD[S.cmode];$('#c-st').checked=S.cmode==='stop';$('#c-stl').classList.toggle('hide',S.cmode==='amrap');$('#c-loop').checked=!!S.cloop;L.innerHTML=cuRows(S.cs,S.cmode==='amrap')}
 const cuSetS=r=>{S.cs=r;save();cuDraw();draw()};
 cuBind($('#c-list'),()=>S.cs,cuSetS,()=>S.cmode==='amrap');
 $('#c-add').onclick=()=>{if(S.cs.length>=60){toast('60 séries maximum');return}cqOpen([cuNew(S.cs)],S.cmode==='amrap',o=>cuSetS([...S.cs,o[0]]),{single:1,title:'Nouvelle série'})};
-document.querySelectorAll('#c-mode [data-cm]').forEach(b=>b.onclick=()=>{S.cmode=b.dataset.cm;if(S.cmode!=='amrap')S.cs=S.cs.filter(c=>c.t!=='r');save();cuDraw();draw()});
+document.querySelectorAll('#c-mode [data-cm]').forEach(b=>b.onclick=()=>{S.cmode=b.dataset.cm==='amrap'?'amrap':(S.cst?'stop':'classic');save();cuDraw();draw()});
+$('#c-st').onchange=()=>{S.cst=$('#c-st').checked;if(S.cmode!=='amrap')S.cmode=S.cst?'stop':'classic';save();cuDraw();draw()};
 $('#c-loop').onchange=()=>{S.cloop=$('#c-loop').checked;save();draw()};
-function plDraw(){document.querySelectorAll('#pl-mode [data-cm]').forEach(b=>b.classList.toggle('on',b.dataset.cm===PL.mode));$('#pl-mdesc').textContent=CMD[PL.mode];$('#pl-list').innerHTML=cuRows(PL.rows,PL.mode==='amrap');const mr=PL.rows.filter(c=>c.t!=='r');
+function plDraw(){if(PL.mode==='stop')PL.cst=true;document.querySelectorAll('#pl-mode [data-cm]').forEach(b=>b.classList.toggle('on',b.dataset.cm===(PL.mode==='amrap'?'amrap':'classic')));$('#pl-mdesc').textContent=CMD[PL.mode];$('#pl-st').checked=PL.mode==='stop';$('#pl-stl').classList.toggle('hide',PL.mode==='amrap');$('#pl-list').innerHTML=cuRows(PL.rows,PL.mode==='amrap');const mr=PL.rows.filter(c=>c.t!=='r');
   $('#pl-prev').textContent=mr.length?mr.length+' séries · '+mr.reduce((a,c)=>a+(+c.r||0),0)+' reps'+((PL.mode==='amrap')?'':' · '+mss(PL.rows.reduce((a,c)=>a+(+c.d||0),0))):'Ajoute au moins une série.'}
 function plReset(){PL={mode:'classic',rows:[]};plDraw()}
-document.querySelectorAll('#pl-mode [data-cm]').forEach(b=>b.onclick=()=>{PL.mode=b.dataset.cm;if(PL.mode!=='amrap')PL.rows=PL.rows.filter(c=>c.t!=='r');plDraw()});
+document.querySelectorAll('#pl-mode [data-cm]').forEach(b=>b.onclick=()=>{PL.mode=b.dataset.cm==='amrap'?'amrap':(PL.cst?'stop':'classic');plDraw()});
+$('#pl-st').onchange=()=>{PL.cst=$('#pl-st').checked;if(PL.mode!=='amrap')PL.mode=PL.cst?'stop':'classic';plDraw()};
 const plSet=r=>{PL.rows=r;plDraw()};
 cuBind($('#pl-list'),()=>PL.rows,plSet,()=>PL.mode==='amrap');
 $('#pl-add').onclick=()=>{if(PL.rows.length>=60){toast('60 séries maximum');return}cqOpen([cuNew(PL.rows)],PL.mode==='amrap',o=>plSet([...PL.rows,o[0]]),{single:1,title:'Nouvelle série'})};
@@ -1840,6 +1870,76 @@ $('#cq-ok').onclick=()=>{if(!CQ)return;
   if(CQ.rows.some(r=>r.t==='m'&&!String(r.ex.ex).trim())){toast('Nomme le mouvement de chaque ligne');return}
   if(!CQ.rows.some(r=>r.t==='m')){toast('Ajoute au moins un mouvement');return}
   const out=CQ.rows.map(r=>r.t==='r'?{t:'r',d:r.d}:{t:'m',ex:{...r.ex,ex:String(r.ex.ex).trim(),v:String(r.ex.v||'').trim()},r:r.r,d:r.d}),cb=CQ.cb;cqClose();cb(out)};
+/* ===== Séances favorites + bibliothèque ===== */
+const FMODE={emom:'Emom',pyramid:'Pyramide',amrap:'AMRAP',custom:'Libre'};
+const fNum=(v,a,b,d)=>{v=+v;return isFinite(v)?Math.min(b,Math.max(a,Math.round(v))):d};
+const fEx=e=>{if(!e||typeof e!=='object'||typeof e.ex!=='string'||!e.ex.trim())return null;const o={ex:e.ex.trim().slice(0,40),v:String(e.v||'').slice(0,40)};if(e.ty==='s')o.ty='s';const w=+e.w;if(isFinite(w)&&w>0&&w<1000)o.w=Math.round(w*100)/100;return o};
+const fMv=a=>(Array.isArray(a)?a:[]).slice(0,12).map(m=>{const e=fEx(m);return e?{...e,r:fNum(m.r,1,999,10)}:null}).filter(Boolean);
+/* nettoie toute séance favorite (aussi celles reçues des amis) */
+function favClean(f){if(!f||typeof f!=='object'||!FMODE[f.mode]||!f.cfg||typeof f.cfg!=='object')return null;const c=f.cfg,m=f.mode,o={};
+  if(m==='emom'){o.rounds=fNum(c.rounds,1,200,10);o.work=fNum(c.work,5,3600,60);o.reps=fNum(c.reps,1,999,10);o.inf=!!c.inf;o.stop=!!c.stop;o.ex=(Array.isArray(c.ex)?c.ex:[]).map(fEx).filter(Boolean).slice(0,12)}
+  else if(m==='pyramid'){o.pm=fEx(c.pm);o.pStart=fNum(c.pStart,1,99,1);o.pStep=fNum(c.pStep,1,99,1);o.pMax=fNum(c.pMax,1,99,5);o.pstop=!!c.pstop;o.work=fNum(c.work,5,3600,60)}
+  else if(m==='amrap'){o.aType=c.aType==='rounds'?'rounds':'time';o.aMin=fNum(c.aMin,1,180,10);o.aRounds=fNum(c.aRounds,1,100,5);o.mv=fMv(c.mv)}
+  else{o.cs=(Array.isArray(c.cs)?c.cs:[]).slice(0,60).map(r=>{const e=fEx(r&&r.ex);return e?{t:'m',ex:e,r:fNum(r.r,1,999,10),d:fNum(r.d,3,3600,60)}:null}).filter(Boolean);if(!o.cs.length)return null;
+    o.cmode=['classic','amrap','stop'].includes(c.cmode)?c.cmode:'classic';o.cst=o.cmode==='stop'||!!c.cst;o.cloop=!!c.cloop}
+  const name=String(f.name||'').replace(/\s+/g,' ').trim().slice(0,40);if(!name)return null;
+  const r={id:String(f.id||'f'+Date.now()).slice(0,40),fav:1,name,mode:m,cfg:o,ts:isFinite(+f.ts)?+f.ts:Date.now()};
+  if(f.by)r.by=String(f.by).slice(0,30);if(f.from)r.from=String(f.from).slice(0,90);return r}
+const FSNAP={emom:['rounds','work','reps','inf','stop','ex'],pyramid:['pm','pStart','pStep','pMax','pstop','work'],amrap:['aType','aMin','aRounds','mv'],custom:['cs','cmode','cst','cloop']};
+const favSnap=()=>{const cfg={};FSNAP[S.mode].forEach(k=>{cfg[k]=JSON.parse(JSON.stringify(S[k]===undefined?null:S[k]))});return{mode:S.mode,cfg}};
+const favSum=f=>{const c=f.cfg;
+  if(f.mode==='custom')return c.cs.length+' série'+(c.cs.length>1?'s':'')+' · '+({classic:'Classic',amrap:'AMRAP',stop:'Classic + Stop'})[c.cmode]+(c.cloop?' · en boucle':'');
+  if(f.mode==='pyramid')return c.pStart+' → '+Math.max(c.pMax,c.pStart)+' (+'+c.pStep+')'+(c.pstop?' · stop':' · '+c.work+' s');
+  if(f.mode==='amrap')return c.aType==='rounds'?c.aRounds+' tours':c.aMin+' min';
+  return (c.inf?'Sans limite':c.rounds+' séries')+' · '+(c.stop?'stop':mss(c.work))+' · '+c.reps+' reps'};
+const favNames=f=>{const c=f.cfg,a=f.mode==='custom'?c.cs.map(r=>r.ex):f.mode==='pyramid'?(c.pm?[c.pm]:[]):f.mode==='amrap'?c.mv:c.ex,s=[...new Set(a.map(e=>lab(e)))];return s.slice(0,4).join(', ')+(s.length>4?'…':'')};
+function favLoad(f){const c=favClean(f);if(!c){toast('Séance invalide');return}
+  Object.assign(S,JSON.parse(JSON.stringify(c.cfg)),{mode:c.mode});S.hm=S.hm.filter(x=>x!==S.mode);save();drawEx();draw();show('setup');toast('« '+c.name+' » chargée : lance-la quand tu veux')}
+/* fenêtre de nom */
+let FN=null;
+function favName(title,sub,val,cb){FN=cb;$('#favn-t').textContent=title;$('#favn-s').textContent=sub||'';$('#favn-in').value=val||'';$('#favn').classList.remove('hide');setTimeout(()=>{$('#favn-in').focus();$('#favn-in').select()},60)}
+const favnClose=()=>{$('#favn').classList.add('hide');FN=null};
+$('#favn-x').onclick=favnClose;$('#favn').addEventListener('click',e=>{if(e.target.id==='favn')favnClose()});
+$('#favn-ok').onclick=()=>{const v=$('#favn-in').value.replace(/\s+/g,' ').trim().slice(0,40);if(!v){toast('Donne un nom à la séance');return}const f=FN;favnClose();if(f)f(v)};
+$('#favn-in').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('#favn-ok').click()}});
+const favs=()=>PR.filter(x=>x&&x.fav);
+function favAdd(){if(S.mode==='custom'&&!S.cs.some(c=>c.t!=='r')){toast('Ajoute au moins une série');return}
+  if(favs().length>=60){toast('60 favoris maximum');return}
+  const sn=favSnap(),dn=(fmtName()+' · '+paramStr()).slice(0,40);
+  favName('Nouvelle séance favorite','Donne-lui un nom pour la retrouver dans la bibliothèque.',dn,n=>{
+    const f=favClean({id:'f'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name:n,mode:sn.mode,cfg:sn.cfg,ts:Date.now()});
+    if(!f){toast('Séance incomplète');return}PR.push(f);saveP();toast('Ajoutée aux favoris ★');libDraw()})}
+$('#fav-btn').onclick=favAdd;$('#dfav').onclick=favAdd;
+$('#lib-btn').onclick=()=>show('lib');$('#lib-back').onclick=()=>show('setup');
+/* bibliothèque */
+let LT='mine',LB=0,LBF=[],LDA=null;
+const PHOTO=/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/;
+const favAv=a=>a.photo&&PHOTO.test(a.photo)?'<span class="avatar photo" role="img" aria-label="Photo de '+esc(a.name)+'" style="background-image:url(\''+a.photo+'\')"></span>':'<span class="avatar">'+esc((String(a.name||'?').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('')||'?').toUpperCase())+'</span>';
+function favCard(f,acts,au){return '<div class="card fav"><div class="fh"><b>'+esc(f.name)+'</b><span class="fm">'+FMODE[f.mode]+'</span></div>'
+  +(au?'<div class="fau">'+favAv(au)+'<span>'+esc(au.name)+'</span></div>':f.by?'<div class="fau"><span>De '+esc(f.by)+'</span></div>':'')
+  +'<small>'+esc(favSum(f))+'</small>'+(favNames(f)?'<small>'+esc(favNames(f))+'</small>':'')+'<div class="fa">'+acts+'</div></div>'}
+function libDraw(){const L=$('#lib-list');if(!L)return;document.querySelectorAll('#lib-tabs [data-lt]').forEach(b=>b.classList.toggle('on',b.dataset.lt===LT));
+  if(LT==='mine'){const a=favs().map(favClean).filter(Boolean).sort((x,y)=>y.ts-x.ts);
+    L.innerHTML=a.length?a.map(f=>favCard(f,'<button type="button" class="fgo" data-fl="'+esc(f.id)+'">Charger</button><button type="button" data-fr="'+esc(f.id)+'" aria-label="Renommer">'+ic('pencil')+'</button><button type="button" class="'+(LDA===f.id?'fdel':'')+'" data-fd="'+esc(f.id)+'" aria-label="Supprimer">'+(LDA===f.id?'Confirmer':ic('x'))+'</button>')).join(''):'<p class="sub">Aucune séance favorite pour l’instant. Règle une séance, puis touche l’étoile en haut de « S’entraîner ».</p>';return}
+  const tk=++LB;L.innerHTML='<p class="sub">Chargement…</p>';
+  Promise.resolve(window.__refreshFeed?window.__refreshFeed():null).catch(()=>{}).then(()=>{if(tk!==LB||LT!=='friends')return;
+    const c=window.__feedCtx||{};LBF=[];
+    if(!c.logged){L.innerHTML='<p class="sub">Connecte-toi (onglet Profil) pour retrouver les séances de tes amis.</p>';return}
+    (c.friends||[]).forEach(fr=>{const d=fr.d;if(!d||d.private||!Array.isArray(d.favs))return;d.favs.slice(0,60).forEach(x=>{const f=favClean(x);if(f)LBF.push({f,au:{uid:fr.uid,name:fr.name,photo:fr.photo}})})});
+    LBF.sort((x,y)=>y.f.ts-x.f.ts);
+    L.innerHTML=LBF.length?LBF.map((x,i)=>{const have=PR.some(p=>p&&p.from===x.au.uid+':'+x.f.id);
+      return favCard(x.f,'<button type="button" class="fgo" data-fl="f'+i+'">Charger</button><button type="button" data-fa="'+i+'"'+(have?' disabled':'')+' aria-label="Ajouter à mes favoris">'+ic('star')+(have?'Ajoutée':'Ajouter')+'</button>',x.au)}).join(''):'<p class="sub">Aucune séance favorite chez tes amis pour l’instant. Ils n’ont peut-être pas encore de favoris, ou leur partage est désactivé.</p>'})}
+document.querySelectorAll('#lib-tabs [data-lt]').forEach(b=>b.onclick=()=>{LT=b.dataset.lt;libDraw()});
+$('#lib-list').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  const fl=b.dataset.fl,fr=b.dataset.fr,fd=b.dataset.fd,fa=b.dataset.fa;
+  if(fl!==undefined){const f=fl[0]==='f'&&/^f\d+$/.test(fl)&&LT==='friends'?(LBF[+fl.slice(1)]||{}).f:favs().find(x=>x.id===fl);if(f)favLoad(f)}
+  else if(fr!==undefined){const it=favs().find(x=>x.id===fr);if(it)favName('Renommer la séance','',it.name,n=>{it.name=n;saveP();libDraw()})}
+  else if(fd!==undefined){const it=favs().find(x=>x.id===fd);if(!it)return;
+    if(LDA===fd){LDA=null;PR=PR.filter(x=>x!==it);saveP();libDraw();toast('Favori supprimé')}
+    else{LDA=fd;libDraw();setTimeout(()=>{if(LDA===fd){LDA=null;libDraw()}},3500)}}
+  else if(fa!==undefined){const x=LBF[+fa];if(!x)return;if(favs().length>=60){toast('60 favoris maximum');return}
+    const n=favClean({...x.f,id:'f'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),ts:Date.now(),by:x.au.name,from:x.au.uid+':'+x.f.id});
+    if(n){PR.push(n);saveP();toast('Ajoutée à tes favoris ★');libDraw()}}});
 $('#s-add').onclick=()=>{const g=getPick('s');if(!g)return;S.ex.push(g);save();drawEx()};
 $('#s-list').onclick=e=>{const c=e.target.closest('[data-i]');if(!c)return;S.ex.splice(+c.dataset.i,1);save();drawEx()};
 let FE=null;
@@ -2252,7 +2352,7 @@ $("#logout").addEventListener("click",async()=>{try{await signOut(auth)}catch(e)
 function localData(){return window.__emomBridge?.getData()||{perf:[],goals:[],presets:[]}}
 function stats(){
  const d=localData(),n=d.perf.length,g=d.goals.length,prs=d.presets.length;
- $("#profile-stats").textContent=`${n} performance(s) · ${g} objectif(s) · ${prs} programme(s) enregistré(s)`;
+ $("#profile-stats").textContent=`${n} performance(s) · ${g} objectif(s) · ${prs} séance(s) favorite(s)`;
 }
 window.__refreshProfile=()=>{if(currentUser)stats()};
 window.__firebaseSave=()=>{
@@ -2262,7 +2362,7 @@ window.__firebaseSave=()=>{
   profile:{displayName:u.displayName||u.email?.split("@")[0]||"Sportif",email:u.email||""},
   emom:{perf:d.perf,goals:d.goals,presets:d.presets},
   updatedAt:serverTimestamp()
- },{merge:true})).then(()=>setDoc(doc(db,"shared",u.uid),{...sharedPayload(d),updatedAt:serverTimestamp()})).then(()=>{if(currentUser?.uid===u.uid)$("#sync-status").textContent="Synchronisation terminée."})
+ },{merge:true})).then(()=>writeShared(u.uid,d)).then(()=>{if(currentUser?.uid===u.uid)$("#sync-status").textContent="Synchronisation terminée."})
  .catch(e=>{if(currentUser?.uid===u.uid)$("#sync-status").textContent="Échec de synchronisation. Vérifie les règles Firestore et ta connexion."});
 };
 // ===================== Amis, photo de profil, partage =====================
@@ -2277,6 +2377,8 @@ function avatar(p,cls=""){const nm=p?.displayName||"?";
  return p?.photo&&PHOTO_RE.test(p.photo)?`<span class="avatar photo ${cls}" role="img" aria-label="Photo de ${escH(nm)}" style="background-image:url('${p.photo}')"></span>`:`<span class="avatar ${cls}">${escH(initials(nm))}</span>`}
 let myProfile={},unsubFr=null,frList=[],profCache=new Map(),viewUid=null,searchRes=[];
 const sharedPayload=d=>myProfile.shareData===false?{private:true,perf:[],goals:[]}:{private:false,perf:d.perf,goals:d.goals};
+const favsOf=d=>myProfile.shareData===false?[]:(d.presets||[]).filter(x=>x&&x.fav).slice(0,60);
+const writeShared=async(uid,d)=>{await setDoc(doc(db,"shared",uid),{...sharedPayload(d),updatedAt:serverTimestamp()});try{await setDoc(doc(db,"shared",uid),{favs:favsOf(d)},{merge:true})}catch(e){}};
 
 async function ensureProfile(user){
  const ref=doc(db,"profiles",user.uid),snap=await getDoc(ref),name=uname(user),base={displayName:name,handle:hSan(name)};
@@ -2315,7 +2417,7 @@ $("#photo-remove").addEventListener("click",async()=>{if(!currentUser)return;
 $("#share-sw").addEventListener("click",async()=>{if(!currentUser)return;
  const v=!(myProfile.shareData!==false);myProfile={...myProfile,shareData:v};renderMe();
  try{await setDoc(doc(db,"profiles",currentUser.uid),{shareData:v,updatedAt:serverTimestamp()},{merge:true});
-  await setDoc(doc(db,"shared",currentUser.uid),{...sharedPayload(localData()),updatedAt:serverTimestamp()});
+  await writeShared(currentUser.uid,localData());
   $("#photo-msg").textContent=v?"Tes amis peuvent voir tes performances et objectifs.":"Tes performances et objectifs sont privés."}
  catch(e){$("#photo-msg").textContent="Impossible de changer ce réglage."}});
 
@@ -2556,7 +2658,7 @@ onAuthStateChanged(auth,async user=>{
  }catch(e){$("#sync-status").textContent="Impossible de charger Firestore. Vérifie les règles de sécurité et la configuration du projet."}
  finally{loadingRemote=false;stats()}
  // ---- amis : profil public + données partagées
- try{await ensureProfile(user);await setDoc(doc(db,"shared",user.uid),{...sharedPayload(localData()),updatedAt:serverTimestamp()})}
+ try{await ensureProfile(user);await writeShared(user.uid,localData())}
  catch(e){$("#fr-empty").classList.remove("hide");$("#fr-empty").textContent="Les amis ne sont pas encore activés : publie les nouvelles règles Firestore (voir le fichier firestore.rules)."}
  startFriends(user);
 });
